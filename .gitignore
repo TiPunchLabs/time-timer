@@ -1,0 +1,24 @@
+# Common
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*~
+.direnv/
+# React
+node_modules/
+build/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars.backup
+.terraform.lock.hcl
