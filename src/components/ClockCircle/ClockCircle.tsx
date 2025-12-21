@@ -38,6 +38,8 @@ interface ClockCircleProps {
   isEmpty?: boolean
   /** Custom fill color (defaults to TIMER_BLUE) */
   color?: string
+  /** Whether to show the inner pastel circle (defaults to true) */
+  showPastel?: boolean
 }
 
 /**
@@ -101,6 +103,7 @@ export function ClockCircle({
   isPaused = false,
   isEmpty = false,
   color = TIMER_BLUE,
+  showPastel = true,
 }: ClockCircleProps) {
   const viewBoxSize = 100
   const center = viewBoxSize / 2
@@ -138,7 +141,7 @@ export function ClockCircle({
       aria-label={`Cercle ${isEmpty ? 'vide' : `rempli à ${Math.round(fillPercentage * 100)}%`}`}
     >
       {/* Inner arc (light/pastel version - inside, same drain behavior) */}
-      {!isEmpty && fillPercentage > 0 && (
+      {showPastel && !isEmpty && fillPercentage > 0 && (
         <path
           d={innerArcPath}
           fill="none"

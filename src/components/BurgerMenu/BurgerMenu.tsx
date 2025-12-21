@@ -17,9 +17,11 @@ interface BurgerMenuProps {
   onSelectDuration: (minutes: number) => void
   selectedColor: string
   onSelectColor: (hex: string) => void
+  showPastel: boolean
+  onTogglePastel: (enabled: boolean) => void
 }
 
-export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, onSelectColor }: BurgerMenuProps) {
+export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, onSelectColor, showPastel, onTogglePastel }: BurgerMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
   const firstButtonRef = useRef<HTMLButtonElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -159,7 +161,7 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
         </div>
 
         {/* Color section */}
-        <div className="p-4">
+        <div className="p-4 border-b border-slate-100">
           <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
             Couleur
           </h3>
@@ -183,15 +185,17 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
                   viewBox="0 0 100 100"
                   className="w-full h-full drop-shadow"
                 >
-                  {/* Inner track (light/pastel version - inside) */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="36"
-                    fill="none"
-                    stroke={getLightColor(color.hex, 0.2)}
-                    strokeWidth="8"
-                  />
+                  {/* Inner track (light/pastel version - inside) - only if showPastel */}
+                  {showPastel && (
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="36"
+                      fill="none"
+                      stroke={getLightColor(color.hex, 0.2)}
+                      strokeWidth="8"
+                    />
+                  )}
                   {/* Outer color arc (full color - outside) */}
                   <circle
                     cx="50"
@@ -217,6 +221,32 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Pastel toggle section */}
+        <div className="p-4">
+          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">
+            Options
+          </h3>
+          <label className="flex items-center justify-between cursor-pointer">
+            <span className="text-sm font-medium text-slate-700">Cercle pastel intérieur</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={showPastel}
+              onClick={() => onTogglePastel(!showPastel)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                showPastel ? 'bg-blue-500' : 'bg-slate-300'
+              }`}
+              aria-label="Activer ou désactiver le cercle pastel intérieur"
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  showPastel ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </label>
         </div>
       </div>
     </div>

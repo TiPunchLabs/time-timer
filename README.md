@@ -8,8 +8,11 @@ Application PWA de gestion visuelle du temps pour enfants. Représentation analo
 
 - **Saisie intuitive** : Configurez la durée en heures et minutes (max 4 heures)
 - **Ronds d'horloge** : Chaque rond représente 1 heure (style Time-Timer)
+- **Design dual-arc** : Arc coloré externe + arc pastel interne optionnel qui se vident ensemble
 - **Menu burger** : Accès rapide à des durées prédéfinies (30 min, 45 min, 1h15, 1h30, 2h, 2h30)
-- **Décompte visuel** : Le remplissage bleu se retire dans le sens horaire depuis 12h
+- **Sélecteur de couleur** : 12 couleurs personnalisables (persistées en localStorage)
+- **Toggle cercle pastel** : Activation/désactivation du cercle pastel intérieur (désactivé par défaut)
+- **Décompte visuel** : Le remplissage se retire dans le sens horaire depuis 12h
 - **Contrôles simples** : Démarrer, Pause, Reset
 - **Animation pause** : Pulsation visuelle quand le timer est en pause
 - **Design mobile-first** : Interface optimisée pour mobiles et tablettes
@@ -125,7 +128,7 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Résultats actuels** : 152/152 tests passés
+**Résultats actuels** : 162/162 tests passés
 
 ## PWA
 

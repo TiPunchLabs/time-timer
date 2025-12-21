@@ -12,6 +12,8 @@ interface TimerDisplayProps {
   isPaused?: boolean
   /** Custom color for circles */
   color?: string
+  /** Whether to show the inner pastel circle */
+  showPastel?: boolean
 }
 
 export function TimerDisplay({
@@ -19,6 +21,7 @@ export function TimerDisplay({
   remainingSeconds,
   isPaused = false,
   color,
+  showPastel = true,
 }: TimerDisplayProps) {
   const circlesData = useMemo(
     () => getCirclesData(totalMinutes, remainingSeconds),
@@ -51,24 +54,17 @@ export function TimerDisplay({
   return (
     <div className={`grid ${gridClass} gap-4 md:gap-6 place-items-center p-2 md:p-4`}>
       {circlesData.map((circle) => (
-        <div
+        <ClockCircle
           key={circle.index}
-          className="relative flex items-center justify-center"
-        >
-          <ClockCircle
-            fillPercentage={circle.fillPercentage}
-            maxFillPercentage={circle.maxFillPercentage}
-            size={circleSize}
-            isActive={circle.isActive}
-            isPaused={isPaused}
-            isEmpty={circle.state === 'empty'}
-            color={color}
-          />
-          {/* Circle number label - centered */}
-          <span className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-bold text-gray-400 pointer-events-none">
-            {circle.index + 1}
-          </span>
-        </div>
+          fillPercentage={circle.fillPercentage}
+          maxFillPercentage={circle.maxFillPercentage}
+          size={circleSize}
+          isActive={circle.isActive}
+          isPaused={isPaused}
+          isEmpty={circle.state === 'empty'}
+          color={color}
+          showPastel={showPastel}
+        />
       ))}
     </div>
   )
