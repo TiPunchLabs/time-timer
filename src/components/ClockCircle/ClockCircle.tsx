@@ -1,12 +1,27 @@
 import { useMemo } from 'react'
 import {
   TIMER_BLUE,
-  TIMER_GRAY,
-  STROKE_COLOR,
   CIRCLE_RADIUS,
-  FILL_STROKE_WIDTH,
-  BORDER_STROKE_WIDTH,
 } from '../../constants/design'
+
+/** Stroke width for the outer colored arc */
+const OUTER_STROKE_WIDTH = 4
+
+/** Stroke width for the inner pastel track */
+const INNER_STROKE_WIDTH = 8
+
+/**
+ * Convert hex color to a lighter version (pastel)
+ * @param hex - Hex color string (e.g., '#2196F3')
+ * @param opacity - Opacity value (0-1), default 0.25
+ */
+function getLightColor(hex: string, opacity: number = 0.25): string {
+  // Convert hex to RGB
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
 
 interface ClockCircleProps {
   /** Fill percentage (0-1) - current fill level */
@@ -21,6 +36,8 @@ interface ClockCircleProps {
   isPaused?: boolean
   /** Whether this circle is empty */
   isEmpty?: boolean
+  /** Custom fill color (defaults to TIMER_BLUE) */
+  color?: string
 }
 
 /**
@@ -83,6 +100,7 @@ export function ClockCircle({
   isActive = false,
   isPaused = false,
   isEmpty = false,
+  color = TIMER_BLUE,
 }: ClockCircleProps) {
   const viewBoxSize = 100
   const center = viewBoxSize / 2
@@ -97,47 +115,50 @@ export function ClockCircle({
     return createClockwiseArcPath(center, center, radius, drainedPercentage, maxFillPercentage)
   }, [center, radius, fillPercentage, maxFillPercentage])
 
-  const fillColor = isEmpty ? 'transparent' : TIMER_BLUE
+  const fillColor = isEmpty ? 'transparent' : color
+  const lightColor = getLightColor(color, 0.2)
   const pauseClass = isPaused && isActive ? 'animate-pause' : ''
+
+  // Inner radius for pastel track (smaller)
+  const innerRadius = radius - 6
+
+  // Inner arc path (same behavior, smaller radius)
+  const innerArcPath = useMemo(() => {
+    const drainedPercentage = maxFillPercentage - fillPercentage
+    return createClockwiseArcPath(center, center, innerRadius, drainedPercentage, maxFillPercentage)
+  }, [center, innerRadius, fillPercentage, maxFillPercentage])
 
   return (
     <svg
       width={size}
       height={size}
       viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
-      className={`${pauseClass} transition-opacity`}
+      className={`${pauseClass} transition-opacity drop-shadow-lg`}
       role="img"
       aria-label={`Cercle ${isEmpty ? 'vide' : `rempli à ${Math.round(fillPercentage * 100)}%`}`}
     >
-      {/* Background circle (gray) */}
-      <circle
-        cx={center}
-        cy={center}
-        r={radius}
-        fill={TIMER_GRAY}
-        stroke={STROKE_COLOR}
-        strokeWidth={BORDER_STROKE_WIDTH}
-      />
+      {/* Inner arc (light/pastel version - inside, same drain behavior) */}
+      {!isEmpty && fillPercentage > 0 && (
+        <path
+          d={innerArcPath}
+          fill="none"
+          stroke={lightColor}
+          strokeWidth={INNER_STROKE_WIDTH}
+          strokeLinecap="round"
+        />
+      )}
 
-      {/* Fill arc (blue) - using path for explicit clockwise control */}
+      {/* Outer arc (full color - outside) */}
       {!isEmpty && fillPercentage > 0 && (
         <path
           d={arcPath}
           fill="none"
           stroke={fillColor}
-          strokeWidth={FILL_STROKE_WIDTH}
+          strokeWidth={OUTER_STROKE_WIDTH}
           strokeLinecap="round"
           className="clock-circle-fill"
         />
       )}
-
-      {/* Center dot */}
-      <circle
-        cx={center}
-        cy={center}
-        r={3}
-        fill={STROKE_COLOR}
-      />
     </svg>
   )
 }

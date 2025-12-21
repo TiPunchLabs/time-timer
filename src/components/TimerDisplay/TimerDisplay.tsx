@@ -10,12 +10,15 @@ interface TimerDisplayProps {
   remainingSeconds: number
   /** Whether the timer is paused */
   isPaused?: boolean
+  /** Custom color for circles */
+  color?: string
 }
 
 export function TimerDisplay({
   totalMinutes,
   remainingSeconds,
   isPaused = false,
+  color,
 }: TimerDisplayProps) {
   const circlesData = useMemo(
     () => getCirclesData(totalMinutes, remainingSeconds),
@@ -50,7 +53,7 @@ export function TimerDisplay({
       {circlesData.map((circle) => (
         <div
           key={circle.index}
-          className="flex flex-col items-center"
+          className="relative flex items-center justify-center"
         >
           <ClockCircle
             fillPercentage={circle.fillPercentage}
@@ -59,9 +62,10 @@ export function TimerDisplay({
             isActive={circle.isActive}
             isPaused={isPaused}
             isEmpty={circle.state === 'empty'}
+            color={color}
           />
-          {/* Circle number label */}
-          <span className="text-xs text-gray-400 mt-1">
+          {/* Circle number label - centered */}
+          <span className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-bold text-gray-400 pointer-events-none">
             {circle.index + 1}
           </span>
         </div>

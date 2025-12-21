@@ -6,9 +6,11 @@ interface DurationPickerProps {
   value: number // in minutes
   onChange: (minutes: number) => void
   disabled?: boolean
+  /** Custom accent color */
+  accentColor?: string
 }
 
-export function DurationPicker({ value, onChange, disabled = false }: DurationPickerProps) {
+export function DurationPicker({ value, onChange, disabled = false, accentColor = TIMER_BLUE }: DurationPickerProps) {
   const { hours: initialHours, minutes: initialMinutes } = fromMinutes(value)
   const [hours, setHours] = useState(initialHours)
   const [minutes, setMinutes] = useState(initialMinutes)
@@ -100,7 +102,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         </button>
         <div
           className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: TIMER_BLUE }}
+          style={{ color: accentColor }}
         >
           {hours}
         </div>
@@ -116,13 +118,21 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         <span className="text-xs font-medium text-slate-500">heures</span>
       </div>
 
-      {/* Separator */}
-      <span
-        className="text-4xl md:text-5xl font-bold"
-        style={{ color: TIMER_BLUE }}
-      >
-        :
-      </span>
+      {/* Separator - aligned with number display */}
+      <div className="flex flex-col items-center gap-1">
+        {/* Spacer for top button height */}
+        <div className="h-10 md:h-14" aria-hidden="true" />
+        <span
+          className="text-4xl md:text-5xl font-bold py-1"
+          style={{ color: accentColor }}
+        >
+          :
+        </span>
+        {/* Spacer for bottom button height */}
+        <div className="h-10 md:h-14" aria-hidden="true" />
+        {/* Spacer for label height */}
+        <div className="h-4" aria-hidden="true" />
+      </div>
 
       {/* Minutes */}
       <div className="flex flex-col items-center gap-1">
@@ -137,7 +147,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         </button>
         <div
           className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: TIMER_BLUE }}
+          style={{ color: accentColor }}
         >
           {minutes.toString().padStart(2, '0')}
         </div>
