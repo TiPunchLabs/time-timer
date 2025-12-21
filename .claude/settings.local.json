@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(speckit.specify)",
+      "Skill(speckit.specify:*)",
+      "Bash(git fetch:*)",
+      "Bash(ls:*)",
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "Skill(speckit.tasks)",
+      "Skill(speckit.tasks:*)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Skill(speckit.plan)",
+      "Skill(speckit.plan:*)",
+      "Bash(.specify/scripts/bash/setup-plan.sh:*)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
+      "Skill(speckit.implement)",
+      "Skill(speckit.implement:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run test:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: implement TempoKids Time Timer v1.2.0\n\nComplete visual timer PWA for kids with clock-based countdown circles:\n\nFeatures:\n- Duration picker with hours/minutes \\(max 4 hours, 4 circles\\)\n- Clock circles display: full circles first, partial last\n- Clockwise drain from 12h position using SVG path arcs\n- Sequential draining: first circle empties first\n- Timer controls: start, pause, resume, reset\n- Pause animation with pulsation effect\n- Mobile-first responsive design optimized for mobile/tablet\n- Reset on page reload \\(no persistence across reloads\\)\n- PWA support: offline mode, installable\n\nTechnical implementation:\n- React 18+ with TypeScript\n- Vite build tool with vite-plugin-pwa\n- Tailwind CSS for styling\n- SVG path with arc commands for precise clockwise control\n- maxFillPercentage tracking for clockwise drain behavior\n- Custom hooks: useTimer, useLocalStorage\n- 47 passing tests \\(Vitest\\)\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
