@@ -53,7 +53,7 @@ export function TimerDisplay({
       {circlesData.map((circle) => (
         <div
           key={circle.index}
-          className="flex flex-col items-center"
+          className="relative flex items-center justify-center"
         >
           <ClockCircle
             fillPercentage={circle.fillPercentage}
@@ -64,8 +64,8 @@ export function TimerDisplay({
             isEmpty={circle.state === 'empty'}
             color={color}
           />
-          {/* Circle number label */}
-          <span className="text-xs text-gray-400 mt-1">
+          {/* Circle number label - centered */}
+          <span className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl font-bold text-gray-400 pointer-events-none">
             {circle.index + 1}
           </span>
         </div>

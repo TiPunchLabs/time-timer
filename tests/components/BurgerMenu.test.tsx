@@ -213,8 +213,8 @@ describe('BurgerMenu', () => {
       const redButton = screen.getByRole('radio', { name: /sélectionner la couleur rouge/i })
       expect(redButton).toHaveAttribute('aria-checked', 'true')
 
-      // Check that there's a checkmark SVG inside
-      const checkmark = redButton.querySelector('svg')
+      // Check that there's a checkmark path inside (for the check mark overlay)
+      const checkmark = redButton.querySelector('path')
       expect(checkmark).toBeInTheDocument()
     })
 
@@ -224,8 +224,8 @@ describe('BurgerMenu', () => {
       const redButton = screen.getByRole('radio', { name: /sélectionner la couleur rouge/i })
       expect(redButton).toHaveAttribute('aria-checked', 'false')
 
-      // No checkmark SVG inside unselected color
-      const checkmark = redButton.querySelector('svg')
+      // No checkmark path inside unselected color (SVG exists but no path for checkmark)
+      const checkmark = redButton.querySelector('path')
       expect(checkmark).not.toBeInTheDocument()
     })
 

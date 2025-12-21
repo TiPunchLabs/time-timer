@@ -1,6 +1,16 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
 import { PRESET_DURATIONS, COLOR_PALETTE } from '../../constants/design'
 
+/**
+ * Convert hex color to a lighter version (pastel)
+ */
+function getLightColor(hex: string, opacity: number = 0.25): string {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+
 interface BurgerMenuProps {
   isOpen: boolean
   onClose: () => void
@@ -158,32 +168,52 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
               <button
                 key={color.hex}
                 onClick={() => onSelectColor(color.hex)}
-                className={`w-10 h-10 rounded-full border-2 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 ${
+                className={`w-12 h-12 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 rounded-full ${
                   selectedColor === color.hex
-                    ? 'border-slate-800 ring-2 ring-slate-300 scale-110'
-                    : 'border-white hover:scale-105 hover:border-slate-200'
+                    ? 'scale-110'
+                    : 'hover:scale-105'
                 }`}
-                style={{ backgroundColor: color.hex }}
                 aria-label={`Sélectionner la couleur ${color.name}`}
                 aria-checked={selectedColor === color.hex}
                 role="radio"
               >
-                {selectedColor === color.hex && (
-                  <svg
-                    className="w-5 h-5 mx-auto text-white drop-shadow-md"
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 100 100"
+                  className="w-full h-full drop-shadow"
+                >
+                  {/* Inner track (light/pastel version - inside) */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="36"
                     fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
+                    stroke={getLightColor(color.hex, 0.2)}
+                    strokeWidth="8"
+                  />
+                  {/* Outer color arc (full color - outside) */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke={color.hex}
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                  {/* Checkmark for selected */}
+                  {selectedColor === color.hex && (
                     <path
+                      d="M35 50 L45 60 L65 40"
+                      fill="none"
+                      stroke={color.hex}
+                      strokeWidth="5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={3}
-                      d="M5 13l4 4L19 7"
                     />
-                  </svg>
-                )}
+                  )}
+                </svg>
               </button>
             ))}
           </div>
