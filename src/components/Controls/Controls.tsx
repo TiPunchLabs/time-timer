@@ -8,6 +8,8 @@ interface ControlsProps {
   onPause: () => void
   onResume: () => void
   onReset: () => void
+  /** Custom accent color for primary buttons */
+  accentColor?: string
 }
 
 export function Controls({
@@ -16,6 +18,7 @@ export function Controls({
   onPause,
   onResume,
   onReset,
+  accentColor = TIMER_BLUE,
 }: ControlsProps) {
   const buttonBase = `
     min-h-[48px] md:min-h-[56px] px-6 md:px-8
@@ -37,7 +40,7 @@ export function Controls({
           type="button"
           onClick={onStart}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_BLUE }}
+          style={{ backgroundColor: accentColor }}
           aria-label="Démarrer le timer"
         >
           <PlayIcon />
@@ -50,7 +53,7 @@ export function Controls({
           type="button"
           onClick={onPause}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_BLUE }}
+          style={{ backgroundColor: accentColor }}
           aria-label="Mettre en pause"
         >
           <PauseIcon />
@@ -63,7 +66,7 @@ export function Controls({
           type="button"
           onClick={onResume}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_BLUE }}
+          style={{ backgroundColor: accentColor }}
           aria-label="Reprendre le timer"
         >
           <PlayIcon />
@@ -76,7 +79,7 @@ export function Controls({
           type="button"
           onClick={onReset}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_BLUE }}
+          style={{ backgroundColor: accentColor }}
           aria-label="Recommencer"
         >
           <ResetIcon />

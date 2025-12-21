@@ -10,12 +10,15 @@ interface TimerDisplayProps {
   remainingSeconds: number
   /** Whether the timer is paused */
   isPaused?: boolean
+  /** Custom color for circles */
+  color?: string
 }
 
 export function TimerDisplay({
   totalMinutes,
   remainingSeconds,
   isPaused = false,
+  color,
 }: TimerDisplayProps) {
   const circlesData = useMemo(
     () => getCirclesData(totalMinutes, remainingSeconds),
@@ -59,6 +62,7 @@ export function TimerDisplay({
             isActive={circle.isActive}
             isPaused={isPaused}
             isEmpty={circle.state === 'empty'}
+            color={color}
           />
           {/* Circle number label */}
           <span className="text-xs text-gray-400 mt-1">

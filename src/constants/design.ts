@@ -38,6 +38,25 @@ export const MINUTES_PER_CIRCLE = 60
 /** LocalStorage key for timer state */
 export const STORAGE_KEY = 'tempokids_timer_state'
 
+/** LocalStorage key for color preference */
+export const COLOR_STORAGE_KEY = 'tempokids_color'
+
+/** Color palette for customization */
+export const COLOR_PALETTE = [
+  { name: 'Bleu', hex: '#2196F3' },
+  { name: 'Rouge', hex: '#F44336' },
+  { name: 'Vert', hex: '#4CAF50' },
+  { name: 'Orange', hex: '#FF9800' },
+  { name: 'Violet', hex: '#9C27B0' },
+  { name: 'Rose', hex: '#E91E63' },
+  { name: 'Turquoise', hex: '#00BCD4' },
+  { name: 'Jaune', hex: '#FFC107' },
+  { name: 'Indigo', hex: '#3F51B5' },
+  { name: 'Teal', hex: '#009688' },
+  { name: 'Lime', hex: '#8BC34A' },
+  { name: 'Amber', hex: '#FF5722' },
+] as const
+
 /** Update interval for timer (ms) */
 export const TIMER_UPDATE_INTERVAL = 100
 
@@ -50,3 +69,13 @@ export const CIRCLE_SIZES = {
   /** 3-4 circles - 2x2 grid */
   md: 135,
 } as const
+
+/** Preset durations for quick selection */
+export const PRESET_DURATIONS = [
+  { label: '30 min', minutes: 30 },
+  { label: '45 min', minutes: 45 },
+  { label: '1h15', minutes: 75 },
+  { label: '1h30', minutes: 90 },
+  { label: '2h', minutes: 120 },
+  { label: '2h30', minutes: 150 },
+] as const

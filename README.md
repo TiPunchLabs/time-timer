@@ -8,6 +8,7 @@ Application PWA de gestion visuelle du temps pour enfants. Représentation analo
 
 - **Saisie intuitive** : Configurez la durée en heures et minutes (max 4 heures)
 - **Ronds d'horloge** : Chaque rond représente 1 heure (style Time-Timer)
+- **Menu burger** : Accès rapide à des durées prédéfinies (30 min, 45 min, 1h15, 1h30, 2h, 2h30)
 - **Décompte visuel** : Le remplissage bleu se retire dans le sens horaire depuis 12h
 - **Contrôles simples** : Démarrer, Pause, Reset
 - **Animation pause** : Pulsation visuelle quand le timer est en pause
@@ -62,7 +63,8 @@ src/
 │   ├── TimerDisplay/    # Affichage des ronds
 │   ├── ErrorBoundary/   # Capture d'erreurs React
 │   ├── OfflineIndicator/ # Indicateur réseau
-│   └── icons/           # Composants icônes (Play, Pause, Reset...)
+│   ├── BurgerMenu/      # Menu burger avec durées prédéfinies
+│   └── icons/           # Composants icônes (Play, Pause, Reset, Burger...)
 ├── hooks/               # Hooks personnalisés
 │   ├── useTimer.ts      # Logique du timer
 │   ├── useLocalStorage.ts
@@ -123,7 +125,7 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Résultats actuels** : 134/134 tests passés
+**Résultats actuels** : 152/152 tests passés
 
 ## PWA
 
@@ -163,6 +165,11 @@ Pour installer sur mobile :
 - [Spécification](./specs/005-persist-timer-state/spec.md)
 - [Plan d'implémentation](./specs/005-persist-timer-state/plan.md)
 - [Tasks](./specs/005-persist-timer-state/tasks.md)
+
+### Feature 006 - Burger Menu avec Durées Prédéfinies
+- [Spécification](./specs/006-burger-menu-presets/spec.md)
+- [Plan d'implémentation](./specs/006-burger-menu-presets/plan.md)
+- [Tasks](./specs/006-burger-menu-presets/tasks.md)
 
 ### Général
 - [Constitution](/.specify/memory/constitution.md)

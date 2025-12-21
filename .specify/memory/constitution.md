@@ -142,6 +142,7 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 | Tests composants (134 tests) | ✅ Implémenté v1.3.0 |
 | Rollover minutes DurationPicker (+/- par pas de 5) | ✅ Implémenté v1.4.0 |
 | Persistance état timer au rechargement | ✅ Implémenté v1.5.0 |
+| Menu burger avec durées prédéfinies | ✅ Implémenté v1.7.0 |
 
 ---
 
@@ -149,6 +150,7 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 1.7.0 | 2025-12-21 | Menu burger avec durées prédéfinies (30, 45, 75, 90, 120, 150 min) |
 | 1.6.0 | 2025-12-21 | Changement couleur par défaut: rouge → bleu (#2196F3) |
 | 1.5.0 | 2025-12-21 | Persistance état timer au rechargement (running/paused/config conservé) |
 | 1.4.0 | 2025-12-21 | Fix: Rollover minutes dans DurationPicker (55→0 avec hour++, 0→55 avec hour--) |
@@ -163,4 +165,4 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 Cette constitution définit les principes fondamentaux du projet. Toute modification majeure de l'architecture ou des principes de design doit être documentée et justifiée.
 
-**Version**: 1.6.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21
+**Version**: 1.7.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21

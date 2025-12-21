@@ -21,6 +21,8 @@ interface ClockCircleProps {
   isPaused?: boolean
   /** Whether this circle is empty */
   isEmpty?: boolean
+  /** Custom fill color (defaults to TIMER_BLUE) */
+  color?: string
 }
 
 /**
@@ -83,6 +85,7 @@ export function ClockCircle({
   isActive = false,
   isPaused = false,
   isEmpty = false,
+  color = TIMER_BLUE,
 }: ClockCircleProps) {
   const viewBoxSize = 100
   const center = viewBoxSize / 2
@@ -97,7 +100,7 @@ export function ClockCircle({
     return createClockwiseArcPath(center, center, radius, drainedPercentage, maxFillPercentage)
   }, [center, radius, fillPercentage, maxFillPercentage])
 
-  const fillColor = isEmpty ? 'transparent' : TIMER_BLUE
+  const fillColor = isEmpty ? 'transparent' : color
   const pauseClass = isPaused && isActive ? 'animate-pause' : ''
 
   return (
