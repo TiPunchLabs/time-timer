@@ -10,6 +10,8 @@ describe('BurgerMenu', () => {
     onSelectDuration: vi.fn(),
     selectedColor: TIMER_BLUE,
     onSelectColor: vi.fn(),
+    showPastel: false,
+    onTogglePastel: vi.fn(),
   }
 
   beforeEach(() => {
@@ -43,6 +45,7 @@ describe('BurgerMenu', () => {
       render(<BurgerMenu {...defaultProps} />)
       expect(screen.getByText('Durées prédéfinies')).toBeInTheDocument()
       expect(screen.getByText('Couleur')).toBeInTheDocument()
+      expect(screen.getByText('Options')).toBeInTheDocument()
     })
 
     it('displays close button', () => {
@@ -162,10 +165,11 @@ describe('BurgerMenu', () => {
     it('traps focus within the menu', async () => {
       render(<BurgerMenu {...defaultProps} />)
 
-      // Get all focusable elements (buttons and radio buttons for color picker)
+      // Get all focusable elements (buttons, radios, and switch)
       const allFocusable = [
         ...screen.getAllByRole('button'),
         ...screen.getAllByRole('radio'),
+        ...screen.getAllByRole('switch'),
       ]
       const firstFocusable = allFocusable[0]
       const lastFocusable = allFocusable[allFocusable.length - 1]
@@ -232,6 +236,43 @@ describe('BurgerMenu', () => {
     it('has radiogroup role for color selection', () => {
       render(<BurgerMenu {...defaultProps} />)
       expect(screen.getByRole('radiogroup', { name: /sélection de couleur/i })).toBeInTheDocument()
+    })
+  })
+
+  describe('Pastel Toggle', () => {
+    it('displays pastel toggle switch', () => {
+      render(<BurgerMenu {...defaultProps} />)
+      expect(screen.getByRole('switch', { name: /cercle pastel/i })).toBeInTheDocument()
+    })
+
+    it('shows toggle in off state when showPastel is false', () => {
+      render(<BurgerMenu {...defaultProps} showPastel={false} />)
+      const toggle = screen.getByRole('switch', { name: /cercle pastel/i })
+      expect(toggle).toHaveAttribute('aria-checked', 'false')
+    })
+
+    it('shows toggle in on state when showPastel is true', () => {
+      render(<BurgerMenu {...defaultProps} showPastel={true} />)
+      const toggle = screen.getByRole('switch', { name: /cercle pastel/i })
+      expect(toggle).toHaveAttribute('aria-checked', 'true')
+    })
+
+    it('calls onTogglePastel when toggle is clicked', () => {
+      const onTogglePastel = vi.fn()
+      render(<BurgerMenu {...defaultProps} showPastel={false} onTogglePastel={onTogglePastel} />)
+
+      fireEvent.click(screen.getByRole('switch', { name: /cercle pastel/i }))
+
+      expect(onTogglePastel).toHaveBeenCalledWith(true)
+    })
+
+    it('calls onTogglePastel with false when toggle is turned off', () => {
+      const onTogglePastel = vi.fn()
+      render(<BurgerMenu {...defaultProps} showPastel={true} onTogglePastel={onTogglePastel} />)
+
+      fireEvent.click(screen.getByRole('switch', { name: /cercle pastel/i }))
+
+      expect(onTogglePastel).toHaveBeenCalledWith(false)
     })
   })
 })

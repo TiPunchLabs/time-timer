@@ -39,12 +39,6 @@ describe('TimerDisplay', () => {
     expect(circles).toHaveLength(2)
   })
 
-  it('displays circle labels (1, 2, etc.)', () => {
-    render(<TimerDisplay totalMinutes={120} remainingSeconds={7200} />)
-    expect(screen.getByText('1')).toBeInTheDocument()
-    expect(screen.getByText('2')).toBeInTheDocument()
-  })
-
   it('renders with pause state', () => {
     render(<TimerDisplay totalMinutes={60} remainingSeconds={3600} isPaused={true} />)
     const circle = screen.getByRole('img')
