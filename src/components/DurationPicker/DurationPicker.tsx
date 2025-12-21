@@ -40,8 +40,38 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
 
   const incrementHours = () => handleHoursChange(hours + 1)
   const decrementHours = () => handleHoursChange(hours - 1)
-  const incrementMinutes = () => handleMinutesChange(minutes + 5)
-  const decrementMinutes = () => handleMinutesChange(minutes - 5)
+
+  const incrementMinutes = () => {
+    // Rollover: at 55 minutes, add 1 hour and reset minutes to 0
+    if (minutes === 55 && hours < MAX_HOURS) {
+      const newHours = hours + 1
+      const newMinutes = 0
+      setHours(newHours)
+      setMinutes(newMinutes)
+      const totalMinutes = toMinutes(newHours, newMinutes)
+      if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
+        onChange(totalMinutes)
+      }
+    } else {
+      handleMinutesChange(minutes + 5)
+    }
+  }
+
+  const decrementMinutes = () => {
+    // Rollover: at 0 minutes with hours > 0, subtract 1 hour and set minutes to 55
+    if (minutes === 0 && hours > 0) {
+      const newHours = hours - 1
+      const newMinutes = 55
+      setHours(newHours)
+      setMinutes(newMinutes)
+      const totalMinutes = toMinutes(newHours, newMinutes)
+      if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
+        onChange(totalMinutes)
+      }
+    } else {
+      handleMinutesChange(minutes - 5)
+    }
+  }
 
   const buttonClass = `
     w-10 h-10 md:w-14 md:h-14
@@ -50,6 +80,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
     transition-all duration-150
     active:scale-95
     disabled:opacity-30 disabled:cursor-not-allowed
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500
   `
 
   const activeButtonClass = `${buttonClass} bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300`
@@ -98,7 +129,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         <button
           type="button"
           onClick={incrementMinutes}
-          disabled={disabled || toMinutes(hours, minutes + 5) > MAX_DURATION_MINUTES}
+          disabled={disabled || (hours >= MAX_HOURS && minutes === 0)}
           className={activeButtonClass}
           aria-label="Augmenter les minutes"
         >
@@ -113,7 +144,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         <button
           type="button"
           onClick={decrementMinutes}
-          disabled={disabled || toMinutes(hours, minutes - 5) < MIN_DURATION_MINUTES}
+          disabled={disabled || (hours === 0 && (minutes - 5) < MIN_DURATION_MINUTES)}
           className={activeButtonClass}
           aria-label="Diminuer les minutes"
         >

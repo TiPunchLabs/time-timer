@@ -14,7 +14,10 @@ Application PWA de gestion visuelle du temps pour enfants. Représentation analo
 - **Design mobile-first** : Interface optimisée pour mobiles et tablettes
 - **Reset au rechargement** : Recharger la page remet le timer à zéro
 - **Mode hors ligne** : Fonctionne sans connexion internet
+- **Indicateur réseau** : Bannière d'état hors ligne/en ligne
 - **Installable** : Application PWA installable sur mobile
+- **Accessibilité** : Focus visible, zoom autorisé (WCAG compliant)
+- **Robustesse** : Error Boundary pour capturer les erreurs React
 
 ## Stack Technique
 
@@ -56,10 +59,14 @@ src/
 │   ├── ClockCircle/     # Rond d'horloge SVG
 │   ├── Controls/        # Boutons de contrôle
 │   ├── DurationPicker/  # Saisie de durée
-│   └── TimerDisplay/    # Affichage des ronds
+│   ├── TimerDisplay/    # Affichage des ronds
+│   ├── ErrorBoundary/   # Capture d'erreurs React
+│   ├── OfflineIndicator/ # Indicateur réseau
+│   └── icons/           # Composants icônes (Play, Pause, Reset...)
 ├── hooks/               # Hooks personnalisés
 │   ├── useTimer.ts      # Logique du timer
-│   └── useLocalStorage.ts
+│   ├── useLocalStorage.ts
+│   └── useNetworkStatus.ts # Détection online/offline
 ├── utils/               # Fonctions utilitaires
 │   ├── time.ts          # Calculs de temps
 │   └── svg.ts           # Calculs SVG
@@ -116,7 +123,7 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Résultats actuels** : 42/42 tests passés
+**Résultats actuels** : 127/127 tests passés
 
 ## PWA
 
@@ -141,6 +148,16 @@ Pour installer sur mobile :
 - [Spécification](./specs/002-fix-timer-display-order/spec.md)
 - [Plan d'implémentation](./specs/002-fix-timer-display-order/plan.md)
 - [Tasks](./specs/002-fix-timer-display-order/tasks.md)
+
+### Feature 003 - Code Quality Fixes
+- [Spécification](./specs/003-code-quality-fixes/spec.md)
+- [Plan d'implémentation](./specs/003-code-quality-fixes/plan.md)
+- [Tasks](./specs/003-code-quality-fixes/tasks.md)
+
+### Feature 004 - Fix Minute Rollover
+- [Spécification](./specs/004-fix-minute-rollover/spec.md)
+- [Plan d'implémentation](./specs/004-fix-minute-rollover/plan.md)
+- [Tasks](./specs/004-fix-minute-rollover/tasks.md)
 
 ### Général
 - [Constitution](/.specify/memory/constitution.md)
