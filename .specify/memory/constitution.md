@@ -135,6 +135,12 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 | Design mobile-first | ✅ Optimisé v1.2.0 |
 | Maximum 4 heures (4 cercles) | ✅ Implémenté v1.2.0 |
 | PWA (offline, installable) | ✅ Implémenté |
+| Error Boundary (stabilité) | ✅ Implémenté v1.3.0 |
+| Indicateur réseau (offline/online) | ✅ Implémenté v1.3.0 |
+| Focus visible accessibilité | ✅ Implémenté v1.3.0 |
+| Zoom viewport autorisé (WCAG) | ✅ Implémenté v1.3.0 |
+| Tests composants (127 tests) | ✅ Implémenté v1.3.0 |
+| Rollover minutes DurationPicker (+/- par pas de 5) | ✅ Implémenté v1.4.0 |
 
 ---
 
@@ -142,6 +148,8 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 1.4.0 | 2025-12-21 | Fix: Rollover minutes dans DurationPicker (55→0 avec hour++, 0→55 avec hour--) |
+| 1.3.0 | 2025-12-20 | Qualité: Error Boundary, indicateur réseau, focus visible, zoom WCAG, tests composants |
 | 1.2.0 | 2025-12-20 | Vidange horaire depuis 12h, max 4h, design mobile-first, reset au reload |
 | 1.1.0 | 2025-12-20 | Fix: Ordre d'affichage des ronds (pleins d'abord, partiel en dernier) |
 | 1.0.0 | 2025-12-20 | Version initiale avec toutes les fonctionnalités MVP |
@@ -152,4 +160,4 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 Cette constitution définit les principes fondamentaux du projet. Toute modification majeure de l'architecture ou des principes de design doit être documentée et justifiée.
 
-**Version**: 1.2.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-20 | **Implemented**: 2025-12-20
+**Version**: 1.4.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21

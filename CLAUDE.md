@@ -3,6 +3,10 @@
 Auto-generated from all feature plans. Last updated: 2025-12-20
 
 ## Active Technologies
+- TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS, vite-plugin-pwa, @testing-library/react (003-code-quality-fixes)
+- localStorage (déjà implémenté) (003-code-quality-fixes)
+- TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS (aucune nouvelle dépendance) (004-fix-minute-rollover)
+- N/A (pas de persistence pour cette feature) (004-fix-minute-rollover)
 
 - TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS, vite-plugin-pwa (001-time-timer-pwa)
 
@@ -31,9 +35,10 @@ TypeScript 5.x, React 18+: Follow standard conventions
 - **Package Manager**: pnpm (always use pnpm instead of npm/yarn)
 
 ## Recent Changes
+- 004-fix-minute-rollover: Added TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS (aucune nouvelle dépendance)
+- 003-code-quality-fixes: Added TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS, vite-plugin-pwa, @testing-library/react
 
 - 001-time-timer-pwa: Added TypeScript 5.x, React 18+ + React, Vite, Tailwind CSS, vite-plugin-pwa
-- Implementation complete: 50/53 tasks done, 40/40 tests passing
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
