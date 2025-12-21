@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+html, body {
+  @apply h-full;
+}
+
+body {
+  @apply bg-white text-gray-900 antialiased;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  @apply h-full;
+}
+
+/* Pause animation */
+.animate-pause {
+  animation: pulse-pause 2s ease-in-out infinite;
+}
+
+@keyframes pulse-pause {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Smooth transitions for SVG */
+.clock-circle-fill {
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Prevent text selection on touch */
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
