@@ -28,7 +28,7 @@ export function useTimer(initialMinutes: number): UseTimerReturn {
   }))
 
   const animationFrameRef = useRef<number | null>(null)
-  const lastUpdateRef = useRef<number>(0)
+  const pausedAtRef = useRef<number | null>(null)
 
   // Persistence
   const [persistedState, setPersistedState] = useLocalStorage<PersistedState | null>(
@@ -127,26 +127,25 @@ export function useTimer(initialMinutes: number): UseTimerReturn {
   }, [])
 
   const pause = useCallback(() => {
+    pausedAtRef.current = Date.now()
     setState((prev) => {
       if (prev.status !== 'running') return prev
       return {
         ...prev,
         status: 'paused',
-        pausedDuration: prev.pausedDuration + (Date.now() - (prev.startedAt ?? Date.now())),
       }
     })
-    lastUpdateRef.current = Date.now()
   }, [])
 
   const resume = useCallback(() => {
     setState((prev) => {
       if (prev.status !== 'paused') return prev
-      const pauseTime = Date.now() - lastUpdateRef.current
+      const pauseDuration = pausedAtRef.current ? Date.now() - pausedAtRef.current : 0
+      pausedAtRef.current = null
       return {
         ...prev,
         status: 'running',
-        startedAt: Date.now() - (prev.totalDuration - prev.remainingTime) * 1000,
-        pausedDuration: prev.pausedDuration + pauseTime,
+        pausedDuration: prev.pausedDuration + pauseDuration,
       }
     })
   }, [])
