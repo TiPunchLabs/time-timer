@@ -54,6 +54,8 @@ export interface PersistedState {
   status: TimerStatus
   /** Timestamp of last save */
   savedAt: number
+  /** Version for future migrations */
+  version?: number
 }
 
 /**

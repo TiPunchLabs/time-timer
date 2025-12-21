@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import {
-  TIMER_RED,
+  TIMER_BLUE,
   TIMER_GRAY,
   STROKE_COLOR,
   CIRCLE_RADIUS,
@@ -97,7 +97,7 @@ export function ClockCircle({
     return createClockwiseArcPath(center, center, radius, drainedPercentage, maxFillPercentage)
   }, [center, radius, fillPercentage, maxFillPercentage])
 
-  const fillColor = isEmpty ? 'transparent' : TIMER_RED
+  const fillColor = isEmpty ? 'transparent' : TIMER_BLUE
   const pauseClass = isPaused && isActive ? 'animate-pause' : ''
 
   return (
@@ -119,7 +119,7 @@ export function ClockCircle({
         strokeWidth={BORDER_STROKE_WIDTH}
       />
 
-      {/* Fill arc (red) - using path for explicit clockwise control */}
+      {/* Fill arc (blue) - using path for explicit clockwise control */}
       {!isEmpty && fillPercentage > 0 && (
         <path
           d={arcPath}

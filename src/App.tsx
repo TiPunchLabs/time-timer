@@ -7,7 +7,7 @@ import { OfflineIndicator } from './components/OfflineIndicator'
 import { TimerIcon, CheckIcon } from './components/icons'
 import { useTimer } from './hooks/useTimer'
 import { formatTime } from './utils/time'
-import { MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_RED } from './constants/design'
+import { MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE } from './constants/design'
 
 function App() {
   const [durationMinutes, setDurationMinutes] = useState(60) // Default 1 hour
@@ -72,7 +72,7 @@ function App() {
             <div className="mt-4 md:mt-6 px-6 py-3 md:px-8 md:py-4 bg-white rounded-xl md:rounded-2xl shadow-md border border-slate-100">
               <p
                 className="text-3xl md:text-4xl font-mono font-bold tracking-wider"
-                style={{ color: TIMER_RED }}
+                style={{ color: TIMER_BLUE }}
               >
                 {formatTime(state.remainingTime)}
               </p>

@@ -78,7 +78,7 @@ describe('Controls', () => {
     render(<Controls {...defaultProps} status="idle" />)
     const button = screen.getByRole('button', { name: /démarrer/i })
     expect(button.className).toContain('focus:ring-2')
-    expect(button.className).toContain('focus:ring-red-500')
+    expect(button.className).toContain('focus:ring-blue-500')
   })
 
   it('has focus ring on secondary button', () => {

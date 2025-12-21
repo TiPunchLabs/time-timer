@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'timer-red': '#E53935',
+        'timer-blue': '#2196F3',
         'timer-gray': '#E0E0E0',
       },
       animation: {

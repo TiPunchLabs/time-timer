@@ -3,6 +3,24 @@ import type { TimerState, TimerActions, PersistedState } from '../types/timer'
 import { useLocalStorage } from './useLocalStorage'
 import { STORAGE_KEY } from '../constants/design'
 
+/**
+ * Validate persisted state data
+ * Returns false if data is corrupted or invalid
+ */
+function isValidPersistedState(data: unknown): data is PersistedState {
+  if (!data || typeof data !== 'object') return false
+  const state = data as PersistedState
+  return (
+    typeof state.totalDuration === 'number' &&
+    typeof state.remainingTime === 'number' &&
+    typeof state.savedAt === 'number' &&
+    state.totalDuration > 0 &&
+    state.remainingTime >= 0 &&
+    state.savedAt > 0 &&
+    ['idle', 'running', 'paused', 'finished'].includes(state.status)
+  )
+}
+
 const initialState: TimerState = {
   totalDuration: 0,
   remainingTime: 0,
@@ -36,21 +54,68 @@ export function useTimer(initialMinutes: number): UseTimerReturn {
     null
   )
 
-  // Clear persisted state on mount (page reload = reset)
+  // Restore persisted state on mount
   useEffect(() => {
-    if (persistedState) {
-      setPersistedState(null)
+    if (persistedState && isValidPersistedState(persistedState)) {
+      const now = Date.now()
+      const elapsedSinceLastSave = (now - persistedState.savedAt) / 1000
+
+      if (persistedState.status === 'running') {
+        // For running timer: calculate new remaining time
+        const newRemainingTime = Math.max(0, persistedState.remainingTime - elapsedSinceLastSave)
+
+        if (newRemainingTime <= 0) {
+          // Timer expired during absence
+          setState({
+            totalDuration: persistedState.totalDuration,
+            remainingTime: 0,
+            status: 'finished',
+            startedAt: null,
+            pausedDuration: 0,
+          })
+        } else {
+          // Resume running timer with adjusted time
+          setState({
+            totalDuration: persistedState.totalDuration,
+            remainingTime: newRemainingTime,
+            status: 'running',
+            startedAt: now - (persistedState.totalDuration - newRemainingTime) * 1000,
+            pausedDuration: 0,
+          })
+        }
+      } else if (persistedState.status === 'paused') {
+        // For paused timer: restore exact state
+        setState({
+          totalDuration: persistedState.totalDuration,
+          remainingTime: persistedState.remainingTime,
+          status: 'paused',
+          startedAt: null,
+          pausedDuration: 0,
+        })
+      } else if (persistedState.status === 'idle' && persistedState.totalDuration > 0) {
+        // For idle timer: restore configured duration
+        setState({
+          totalDuration: persistedState.totalDuration,
+          remainingTime: persistedState.totalDuration,
+          status: 'idle',
+          startedAt: null,
+          pausedDuration: 0,
+        })
+      }
+      // If status is 'finished' or invalid, keep default state
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Persist state changes
+  // Persist state changes (including idle with configured duration)
   useEffect(() => {
-    if (state.status !== 'idle') {
+    // Persist if running, paused, or idle with a configured duration
+    if (state.status !== 'idle' || state.totalDuration > 0) {
       setPersistedState({
         totalDuration: state.totalDuration,
         remainingTime: state.remainingTime,
         status: state.status,
         savedAt: Date.now(),
+        version: 1,
       })
     }
   }, [state.remainingTime, state.status, state.totalDuration, setPersistedState])

@@ -14,7 +14,7 @@ export default defineConfig({
         name: 'TempoKids - Time Timer',
         short_name: 'TempoKids',
         description: 'Visual time management for children',
-        theme_color: '#E53935',
+        theme_color: '#2196F3',
         background_color: '#FFFFFF',
         display: 'standalone',
         orientation: 'portrait',
