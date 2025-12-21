@@ -29,7 +29,7 @@ Fournir un outil de gestion du temps visuel qui aide les enfants à mieux appré
 
 ### II. Clarté Visuelle Maximale
 - Chaque rond représente exactement 1 heure (60 minutes)
-- Remplissage rouge classique (style Time-Timer original) pour une reconnaissance immédiate
+- Remplissage bleu (couleur TempoKids) pour une reconnaissance immédiate
 - Les ronds vides restent affichés pour marquer la progression
 - Indicateurs visuels clairs pour les états (pause, en cours, terminé)
 
@@ -46,7 +46,7 @@ Fournir un outil de gestion du temps visuel qui aide les enfants à mieux appré
 - Cercles dimensionnés pour une visibilité optimale sur petit écran
 - Fonctionnement 100% hors ligne garanti
 - Application installable (PWA)
-- Rechargement de page = reset du timer (pas de persistance au reload)
+- Persistance de l'état au rechargement (timer running/paused/config conservé)
 
 ### V. Performance
 - Mise à jour du timer fluide à la seconde minimum
@@ -102,7 +102,7 @@ Fournir un outil de gestion du temps visuel qui aide les enfants à mieux appré
 
 | Nom | Valeur | Usage |
 |-----|--------|-------|
-| **Rouge Time-Timer** | `#E53935` | Remplissage actif des ronds |
+| **Bleu TempoKids** | `#2196F3` | Remplissage actif des ronds |
 | **Gris Vide** | `#E0E0E0` | Ronds vidés/terminés |
 | **Fond** | `#FFFFFF` | Arrière-plan principal |
 
@@ -139,8 +139,9 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 | Indicateur réseau (offline/online) | ✅ Implémenté v1.3.0 |
 | Focus visible accessibilité | ✅ Implémenté v1.3.0 |
 | Zoom viewport autorisé (WCAG) | ✅ Implémenté v1.3.0 |
-| Tests composants (127 tests) | ✅ Implémenté v1.3.0 |
+| Tests composants (134 tests) | ✅ Implémenté v1.3.0 |
 | Rollover minutes DurationPicker (+/- par pas de 5) | ✅ Implémenté v1.4.0 |
+| Persistance état timer au rechargement | ✅ Implémenté v1.5.0 |
 
 ---
 
@@ -148,6 +149,8 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 1.6.0 | 2025-12-21 | Changement couleur par défaut: rouge → bleu (#2196F3) |
+| 1.5.0 | 2025-12-21 | Persistance état timer au rechargement (running/paused/config conservé) |
 | 1.4.0 | 2025-12-21 | Fix: Rollover minutes dans DurationPicker (55→0 avec hour++, 0→55 avec hour--) |
 | 1.3.0 | 2025-12-20 | Qualité: Error Boundary, indicateur réseau, focus visible, zoom WCAG, tests composants |
 | 1.2.0 | 2025-12-20 | Vidange horaire depuis 12h, max 4h, design mobile-first, reset au reload |
@@ -160,4 +163,4 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 Cette constitution définit les principes fondamentaux du projet. Toute modification majeure de l'architecture ou des principes de design doit être documentée et justifiée.
 
-**Version**: 1.4.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21
+**Version**: 1.6.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21

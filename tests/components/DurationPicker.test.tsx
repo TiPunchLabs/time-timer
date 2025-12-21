@@ -88,7 +88,7 @@ describe('DurationPicker', () => {
     render(<DurationPicker {...defaultProps} />)
     const incrementButton = screen.getByRole('button', { name: /augmenter les heures/i })
     expect(incrementButton.className).toContain('focus:ring-2')
-    expect(incrementButton.className).toContain('focus:ring-red-500')
+    expect(incrementButton.className).toContain('focus:ring-blue-500')
   })
 
   it('displays labels for hours and minutes', () => {

@@ -8,11 +8,11 @@ Application PWA de gestion visuelle du temps pour enfants. Représentation analo
 
 - **Saisie intuitive** : Configurez la durée en heures et minutes (max 4 heures)
 - **Ronds d'horloge** : Chaque rond représente 1 heure (style Time-Timer)
-- **Décompte visuel** : Le remplissage rouge se retire dans le sens horaire depuis 12h
+- **Décompte visuel** : Le remplissage bleu se retire dans le sens horaire depuis 12h
 - **Contrôles simples** : Démarrer, Pause, Reset
 - **Animation pause** : Pulsation visuelle quand le timer est en pause
 - **Design mobile-first** : Interface optimisée pour mobiles et tablettes
-- **Reset au rechargement** : Recharger la page remet le timer à zéro
+- **Persistance de l'état** : L'état du timer est conservé lors du rechargement (timer en cours, pause, configuration)
 - **Mode hors ligne** : Fonctionne sans connexion internet
 - **Indicateur réseau** : Bannière d'état hors ligne/en ligne
 - **Installable** : Application PWA installable sur mobile
@@ -97,7 +97,7 @@ public/                  # Assets statiques, manifest PWA
 
 | Couleur | Hex | Usage |
 |---------|-----|-------|
-| Rouge Time-Timer | `#E53935` | Remplissage actif |
+| Bleu TempoKids | `#2196F3` | Remplissage actif |
 | Gris | `#E0E0E0` | Ronds vides |
 | Fond | `#FFFFFF` | Arrière-plan |
 
@@ -105,10 +105,10 @@ public/                  # Assets statiques, manifest PWA
 
 1. **Configuration** : L'utilisateur sélectionne une durée (1 min - 4h, max 4 cercles)
 2. **Affichage** : Les ronds s'affichent dans l'ordre : ronds pleins (heures complètes) d'abord, rond partiellement rempli en dernier
-3. **Démarrage** : Le remplissage rouge commence à se retirer depuis 12h dans le sens horaire
+3. **Démarrage** : Le remplissage bleu commence à se retirer depuis 12h dans le sens horaire
 4. **Progression** : Le premier rond se vide en premier, le rond partiel se vide en dernier
 5. **Fin** : Tous les ronds sont vides, le timer est terminé
-6. **Reset** : Recharger la page remet le timer à zéro (pas de persistance au reload)
+6. **Persistance** : L'état est conservé au rechargement (timer running reprend avec temps écoulé calculé, pause restaurée exacte, configuration préservée)
 
 ## Tests
 
@@ -123,7 +123,7 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Résultats actuels** : 127/127 tests passés
+**Résultats actuels** : 134/134 tests passés
 
 ## PWA
 
@@ -158,6 +158,11 @@ Pour installer sur mobile :
 - [Spécification](./specs/004-fix-minute-rollover/spec.md)
 - [Plan d'implémentation](./specs/004-fix-minute-rollover/plan.md)
 - [Tasks](./specs/004-fix-minute-rollover/tasks.md)
+
+### Feature 005 - Persist Timer State
+- [Spécification](./specs/005-persist-timer-state/spec.md)
+- [Plan d'implémentation](./specs/005-persist-timer-state/plan.md)
+- [Tasks](./specs/005-persist-timer-state/tasks.md)
 
 ### Général
 - [Constitution](/.specify/memory/constitution.md)

@@ -1,5 +1,5 @@
 import type { TimerStatus } from '../../types/timer'
-import { TIMER_RED } from '../../constants/design'
+import { TIMER_BLUE } from '../../constants/design'
 import { PlayIcon, PauseIcon, ResetIcon } from '../icons'
 
 interface ControlsProps {
@@ -26,7 +26,7 @@ export function Controls({
     flex items-center justify-center gap-2 md:gap-3
   `
 
-  const primaryButton = `${buttonBase} text-white shadow-lg hover:shadow-xl hover:brightness-110 focus:ring-red-500`
+  const primaryButton = `${buttonBase} text-white shadow-lg hover:shadow-xl hover:brightness-110 focus:ring-blue-500`
   const secondaryButton = `${buttonBase} bg-slate-200 text-slate-700 hover:bg-slate-300 focus:ring-slate-400`
 
   return (
@@ -37,7 +37,7 @@ export function Controls({
           type="button"
           onClick={onStart}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_RED }}
+          style={{ backgroundColor: TIMER_BLUE }}
           aria-label="Démarrer le timer"
         >
           <PlayIcon />
@@ -50,7 +50,7 @@ export function Controls({
           type="button"
           onClick={onPause}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_RED }}
+          style={{ backgroundColor: TIMER_BLUE }}
           aria-label="Mettre en pause"
         >
           <PauseIcon />
@@ -63,7 +63,7 @@ export function Controls({
           type="button"
           onClick={onResume}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_RED }}
+          style={{ backgroundColor: TIMER_BLUE }}
           aria-label="Reprendre le timer"
         >
           <PlayIcon />
@@ -76,7 +76,7 @@ export function Controls({
           type="button"
           onClick={onReset}
           className={primaryButton}
-          style={{ backgroundColor: TIMER_RED }}
+          style={{ backgroundColor: TIMER_BLUE }}
           aria-label="Recommencer"
         >
           <ResetIcon />

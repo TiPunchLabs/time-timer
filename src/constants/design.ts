@@ -2,8 +2,8 @@
  * Design constants for TempoKids
  */
 
-/** Timer red color (Time-Timer classic) */
-export const TIMER_RED = '#E53935'
+/** Timer blue color (TempoKids default) */
+export const TIMER_BLUE = '#2196F3'
 
 /** Empty circle gray */
 export const TIMER_GRAY = '#E0E0E0'

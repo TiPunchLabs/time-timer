@@ -2,7 +2,7 @@ interface TimerIconProps {
   className?: string
 }
 
-export function TimerIcon({ className = 'w-6 h-6 md:w-8 md:h-8 text-red-500' }: TimerIconProps) {
+export function TimerIcon({ className = 'w-6 h-6 md:w-8 md:h-8 text-blue-500' }: TimerIconProps) {
   return (
     <svg
       className={className}

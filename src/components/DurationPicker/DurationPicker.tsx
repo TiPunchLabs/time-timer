@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { fromMinutes, toMinutes } from '../../utils/time'
-import { MAX_HOURS, MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_RED } from '../../constants/design'
+import { MAX_HOURS, MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE } from '../../constants/design'
 
 interface DurationPickerProps {
   value: number // in minutes
@@ -80,7 +80,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
     transition-all duration-150
     active:scale-95
     disabled:opacity-30 disabled:cursor-not-allowed
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
   `
 
   const activeButtonClass = `${buttonClass} bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300`
@@ -100,7 +100,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         </button>
         <div
           className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: TIMER_RED }}
+          style={{ color: TIMER_BLUE }}
         >
           {hours}
         </div>
@@ -119,7 +119,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
       {/* Separator */}
       <span
         className="text-4xl md:text-5xl font-bold"
-        style={{ color: TIMER_RED }}
+        style={{ color: TIMER_BLUE }}
       >
         :
       </span>
@@ -137,7 +137,7 @@ export function DurationPicker({ value, onChange, disabled = false }: DurationPi
         </button>
         <div
           className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: TIMER_RED }}
+          style={{ color: TIMER_BLUE }}
         >
           {minutes.toString().padStart(2, '0')}
         </div>
