@@ -112,6 +112,8 @@ States:
     localStorage               localStorage
     "tempokids_timer_state"    "tempokids_color"
                                "tempokids_pastel_enabled"
+                               "tempokids_minute_ticks"
+                               "tempokids_five_minute_ticks"
 ```
 
 On page reload:
@@ -119,18 +121,18 @@ On page reload:
 2. If `running`: recalculates remaining time based on elapsed time since `savedAt`
 3. If `paused`: restores exact remaining time
 4. If `idle` with duration: restores configured duration
-5. Color and pastel preferences are restored independently
+5. Color, pastel, and tick marks preferences are restored independently
 
 ## SVG Circle Rendering
 
 Each `ClockCircle` renders a layered SVG:
 
 ```
-Layer 1: Gray background circle (stroke, always visible)
-Layer 2: Optional pastel arc (wide stroke, clockwise fill)
-Layer 3: Colored arc (thin stroke, clockwise fill)
-Layer 4: Circle border (thin stroke outline)
-Layer 5: Tick marks (12 o'clock, 3, 6, 9)
+Layer 1: Static dial outline (thin black stroke, always visible)
+Layer 2: Optional minute tick marks (60 small lines, toggled)
+Layer 3: Optional 5-minute tick marks (12 major lines, toggled)
+Layer 4: Optional pastel arc (wide stroke, clockwise fill)
+Layer 5: Colored arc (thin stroke, clockwise fill)
 ```
 
 The clockwise fill trick:
