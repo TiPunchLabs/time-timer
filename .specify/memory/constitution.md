@@ -31,6 +31,8 @@ Fournir un outil de gestion du temps visuel qui aide les enfants à mieux appré
 - Chaque rond représente exactement 1 heure (60 minutes)
 - Design dual-arc : arc coloré externe (fin) + arc pastel interne optionnel (large) qui se vident ensemble
 - Cercle pastel intérieur activable/désactivable via le menu (désactivé par défaut)
+- Contour de cadran noir fin toujours visible (indépendant du mécanisme du timer)
+- Graduations minutes (60 traits) et graduations 5 minutes (12 traits prononcés) activables/désactivables via le menu (désactivées par défaut)
 - 12 couleurs personnalisables (persistées en localStorage)
 - Les ronds vides restent affichés pour marquer la progression
 - Indicateurs visuels clairs pour les états (pause, en cours, terminé)
@@ -167,6 +169,9 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 | Design dual-arc (externe coloré + interne pastel) | ✅ Implémenté v1.8.0 |
 | Sélecteur de couleur (12 couleurs) | ✅ Implémenté v1.8.0 |
 | Toggle cercle pastel (activable/désactivable) | ✅ Implémenté v1.9.0 |
+| Contour de cadran statique (toujours visible) | ✅ Implémenté v2.0.0 |
+| Graduations minutes (toggle, 60 traits) | ✅ Implémenté v2.0.0 |
+| Graduations 5 minutes (toggle, 12 traits prononcés) | ✅ Implémenté v2.0.0 |
 
 ---
 
@@ -174,6 +179,7 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 | Version | Date | Description |
 |---------|------|-------------|
+| 2.0.0 | 2026-03-31 | Contour cadran statique, graduations minutes et 5 minutes (toggles indépendants) |
 | 1.9.0 | 2025-12-21 | Toggle cercle pastel (désactivé par défaut), suppression numéros centrés |
 | 1.8.0 | 2025-12-21 | Design dual-arc, numéro centré, sélecteur 12 couleurs (persisté localStorage) |
 | 1.7.0 | 2025-12-21 | Menu burger avec durées prédéfinies (30, 45, 75, 90, 120, 150 min) |
@@ -191,4 +197,4 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 
 Cette constitution définit les principes fondamentaux du projet. Toute modification majeure de l'architecture ou des principes de design doit être documentée et justifiée.
 
-**Version**: 1.9.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2025-12-21 | **Implemented**: 2025-12-21
+**Version**: 2.0.0 | **Ratified**: 2025-12-20 | **Last Amended**: 2026-03-31 | **Implemented**: 2026-03-31

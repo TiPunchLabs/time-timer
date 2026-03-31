@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import {
   TIMER_BLUE,
   CIRCLE_RADIUS,
+  STROKE_COLOR,
 } from '../../constants/design'
 
 /** Stroke width for the outer colored arc */
@@ -9,6 +10,15 @@ const OUTER_STROKE_WIDTH = 4
 
 /** Stroke width for the inner pastel track */
 const INNER_STROKE_WIDTH = 8
+
+/** Stroke width for the static dial outline */
+const DIAL_OUTLINE_STROKE_WIDTH = 1
+
+/** Tick mark dimensions */
+const TICK_MINOR_LENGTH = 3
+const TICK_MAJOR_LENGTH = 6
+const TICK_MINOR_WIDTH = 0.5
+const TICK_MAJOR_WIDTH = 1
 
 /**
  * Convert hex color to a lighter version (pastel)
@@ -40,6 +50,10 @@ interface ClockCircleProps {
   color?: string
   /** Whether to show the inner pastel circle (defaults to true) */
   showPastel?: boolean
+  /** Whether to show minor (every minute) tick marks */
+  showMinuteTicks?: boolean
+  /** Whether to show major (every 5 minutes) tick marks */
+  showFiveMinuteTicks?: boolean
 }
 
 /**
@@ -95,6 +109,55 @@ function createClockwiseArcPath(
   return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArcFlag} ${sweepFlag} ${end.x} ${end.y}`
 }
 
+/**
+ * Generate SVG line elements for tick marks around the circle.
+ * Only draws ticks within the maxFillPercentage range (partial circles
+ * don't show ticks beyond their actual duration).
+ */
+function generateTickMarks(
+  cx: number,
+  cy: number,
+  r: number,
+  showMinor: boolean,
+  showMajor: boolean,
+  maxFillPercentage: number,
+): JSX.Element[] {
+  const ticks: JSX.Element[] = []
+  const maxMinutes = Math.round(maxFillPercentage * 60)
+
+  for (let i = 0; i < maxMinutes; i++) {
+    const isFiveMinuteMark = i % 5 === 0
+
+    if (!isFiveMinuteMark && !showMinor) continue
+    if (isFiveMinuteMark && !showMajor && !showMinor) continue
+
+    // Use major style only when showMajor is on and it's a 5-minute mark
+    const useMajorStyle = isFiveMinuteMark && showMajor
+    const length = useMajorStyle ? TICK_MAJOR_LENGTH : TICK_MINOR_LENGTH
+    const width = useMajorStyle ? TICK_MAJOR_WIDTH : TICK_MINOR_WIDTH
+    const angle = (i / 60) * 2 * Math.PI
+
+    const outerX = cx + r * Math.sin(angle)
+    const outerY = cy - r * Math.cos(angle)
+    const innerX = cx + (r - length) * Math.sin(angle)
+    const innerY = cy - (r - length) * Math.cos(angle)
+
+    ticks.push(
+      <line
+        key={`tick-${i}`}
+        x1={outerX}
+        y1={outerY}
+        x2={innerX}
+        y2={innerY}
+        stroke={STROKE_COLOR}
+        strokeWidth={width}
+      />
+    )
+  }
+
+  return ticks
+}
+
 export function ClockCircle({
   fillPercentage,
   maxFillPercentage = 1,
@@ -104,6 +167,8 @@ export function ClockCircle({
   isEmpty = false,
   color = TIMER_BLUE,
   showPastel = true,
+  showMinuteTicks = false,
+  showFiveMinuteTicks = false,
 }: ClockCircleProps) {
   const viewBoxSize = 100
   const center = viewBoxSize / 2
@@ -140,6 +205,20 @@ export function ClockCircle({
       role="img"
       aria-label={`Cercle ${isEmpty ? 'vide' : `rempli à ${Math.round(fillPercentage * 100)}%`}`}
     >
+      {/* Static dial outline - always visible, independent of timer state */}
+      <circle
+        cx={center}
+        cy={center}
+        r={radius}
+        fill="none"
+        stroke={STROKE_COLOR}
+        strokeWidth={DIAL_OUTLINE_STROKE_WIDTH}
+      />
+
+      {/* Tick marks - static, limited to maxFillPercentage range */}
+      {(showMinuteTicks || showFiveMinuteTicks) &&
+        generateTickMarks(center, center, radius, showMinuteTicks, showFiveMinuteTicks, maxFillPercentage)}
+
       {/* Inner arc (light/pastel version - inside, same drain behavior) */}
       {showPastel && !isEmpty && fillPercentage > 0 && (
         <path
@@ -147,7 +226,7 @@ export function ClockCircle({
           fill="none"
           stroke={lightColor}
           strokeWidth={INNER_STROKE_WIDTH}
-          strokeLinecap="round"
+          strokeLinecap="butt"
         />
       )}
 
@@ -158,7 +237,7 @@ export function ClockCircle({
           fill="none"
           stroke={fillColor}
           strokeWidth={OUTER_STROKE_WIDTH}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           className="clock-circle-fill"
         />
       )}

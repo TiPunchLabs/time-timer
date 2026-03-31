@@ -19,9 +19,13 @@ interface BurgerMenuProps {
   onSelectColor: (hex: string) => void
   showPastel: boolean
   onTogglePastel: (enabled: boolean) => void
+  showMinuteTicks: boolean
+  onToggleMinuteTicks: (enabled: boolean) => void
+  showFiveMinuteTicks: boolean
+  onToggleFiveMinuteTicks: (enabled: boolean) => void
 }
 
-export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, onSelectColor, showPastel, onTogglePastel }: BurgerMenuProps) {
+export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, onSelectColor, showPastel, onTogglePastel, showMinuteTicks, onToggleMinuteTicks, showFiveMinuteTicks, onToggleFiveMinuteTicks }: BurgerMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
   const firstButtonRef = useRef<HTMLButtonElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -243,6 +247,44 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
               <span
                 className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
                   showPastel ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </label>
+          <label className="flex items-center justify-between cursor-pointer mt-3">
+            <span className="text-sm font-medium text-slate-700">Graduations minutes</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={showMinuteTicks}
+              onClick={() => onToggleMinuteTicks(!showMinuteTicks)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                showMinuteTicks ? 'bg-blue-500' : 'bg-slate-300'
+              }`}
+              aria-label="Activer ou désactiver les graduations minutes"
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  showMinuteTicks ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          </label>
+          <label className="flex items-center justify-between cursor-pointer mt-3">
+            <span className="text-sm font-medium text-slate-700">Graduations 5 minutes</span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={showFiveMinuteTicks}
+              onClick={() => onToggleFiveMinuteTicks(!showFiveMinuteTicks)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                showFiveMinuteTicks ? 'bg-blue-500' : 'bg-slate-300'
+              }`}
+              aria-label="Activer ou désactiver les graduations 5 minutes"
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  showFiveMinuteTicks ? 'translate-x-6' : 'translate-x-1'
                 }`}
               />
             </button>

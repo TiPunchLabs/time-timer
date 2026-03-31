@@ -12,6 +12,9 @@ Application PWA de gestion visuelle du temps pour enfants. Représentation analo
 - **Menu burger** : Accès rapide à des durées prédéfinies (30 min, 45 min, 1h15, 1h30, 2h, 2h30)
 - **Sélecteur de couleur** : 12 couleurs personnalisables (persistées en localStorage)
 - **Toggle cercle pastel** : Activation/désactivation du cercle pastel intérieur (désactivé par défaut)
+- **Contour de cadran** : Cercle noir fin toujours visible, indépendant du mécanisme du timer
+- **Graduations minutes** : Affichage optionnel des 60 traits de graduation (toggle dans le menu)
+- **Graduations 5 minutes** : Affichage optionnel des 12 traits prononcés (toggle dans le menu)
 - **Décompte visuel** : Le remplissage se retire dans le sens horaire depuis 12h
 - **Contrôles simples** : Démarrer, Pause, Reset
 - **Animation pause** : Pulsation visuelle quand le timer est en pause
@@ -104,6 +107,7 @@ public/                  # Assets statiques, manifest PWA
 |---------|-----|-------|
 | Bleu TempoKids | `#2196F3` | Remplissage actif |
 | Gris | `#E0E0E0` | Ronds vides |
+| Noir cadran | `#333333` | Contour cadran et graduations |
 | Fond | `#FFFFFF` | Arrière-plan |
 
 ### Comportement
@@ -128,7 +132,7 @@ pnpm test:watch
 pnpm test:coverage
 ```
 
-**Résultats actuels** : 162/162 tests passés
+**Résultats actuels** : 162 tests passés
 
 ## PWA
 

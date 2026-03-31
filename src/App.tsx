@@ -9,13 +9,15 @@ import { BurgerMenu } from './components/BurgerMenu'
 import { useTimer } from './hooks/useTimer'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { formatTime } from './utils/time'
-import { MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE, COLOR_STORAGE_KEY, PASTEL_ENABLED_STORAGE_KEY } from './constants/design'
+import { MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE, COLOR_STORAGE_KEY, PASTEL_ENABLED_STORAGE_KEY, MINUTE_TICKS_STORAGE_KEY, FIVE_MINUTE_TICKS_STORAGE_KEY } from './constants/design'
 
 function App() {
   const [durationMinutes, setDurationMinutes] = useState(60) // Default 1 hour
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedColor, setSelectedColor] = useLocalStorage(COLOR_STORAGE_KEY, TIMER_BLUE)
   const [showPastel, setShowPastel] = useLocalStorage(PASTEL_ENABLED_STORAGE_KEY, false)
+  const [showMinuteTicks, setShowMinuteTicks] = useLocalStorage(MINUTE_TICKS_STORAGE_KEY, false)
+  const [showFiveMinuteTicks, setShowFiveMinuteTicks] = useLocalStorage(FIVE_MINUTE_TICKS_STORAGE_KEY, false)
   const { state, actions } = useTimer(durationMinutes)
 
   const handleDurationChange = useCallback((minutes: number) => {
@@ -52,6 +54,14 @@ function App() {
     setShowPastel(enabled)
   }, [setShowPastel])
 
+  const handleMinuteTicksToggle = useCallback((enabled: boolean) => {
+    setShowMinuteTicks(enabled)
+  }, [setShowMinuteTicks])
+
+  const handleFiveMinuteTicksToggle = useCallback((enabled: boolean) => {
+    setShowFiveMinuteTicks(enabled)
+  }, [setShowFiveMinuteTicks])
+
   const isRunningOrPaused = state.status === 'running' || state.status === 'paused'
   const isFinished = state.status === 'finished'
 
@@ -69,6 +79,10 @@ function App() {
         onSelectColor={handleColorChange}
         showPastel={showPastel}
         onTogglePastel={handlePastelToggle}
+        showMinuteTicks={showMinuteTicks}
+        onToggleMinuteTicks={handleMinuteTicksToggle}
+        showFiveMinuteTicks={showFiveMinuteTicks}
+        onToggleFiveMinuteTicks={handleFiveMinuteTicksToggle}
       />
 
       {/* Header */}
@@ -119,6 +133,8 @@ function App() {
                 isPaused={state.status === 'paused'}
                 color={selectedColor}
                 showPastel={showPastel}
+                showMinuteTicks={showMinuteTicks}
+                showFiveMinuteTicks={showFiveMinuteTicks}
               />
             </div>
           </div>
