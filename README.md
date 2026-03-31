@@ -148,38 +148,11 @@ Pour installer sur mobile :
 
 ## Documentation
 
-### Feature 001 - Time Timer PWA (Initial)
-- [Spécification](./specs/001-time-timer-pwa/spec.md)
-- [Plan d'implémentation](./specs/001-time-timer-pwa/plan.md)
-- [Tasks](./specs/001-time-timer-pwa/tasks.md)
-
-### Feature 002 - Fix Timer Display Order
-- [Spécification](./specs/002-fix-timer-display-order/spec.md)
-- [Plan d'implémentation](./specs/002-fix-timer-display-order/plan.md)
-- [Tasks](./specs/002-fix-timer-display-order/tasks.md)
-
-### Feature 003 - Code Quality Fixes
-- [Spécification](./specs/003-code-quality-fixes/spec.md)
-- [Plan d'implémentation](./specs/003-code-quality-fixes/plan.md)
-- [Tasks](./specs/003-code-quality-fixes/tasks.md)
-
-### Feature 004 - Fix Minute Rollover
-- [Spécification](./specs/004-fix-minute-rollover/spec.md)
-- [Plan d'implémentation](./specs/004-fix-minute-rollover/plan.md)
-- [Tasks](./specs/004-fix-minute-rollover/tasks.md)
-
-### Feature 005 - Persist Timer State
-- [Spécification](./specs/005-persist-timer-state/spec.md)
-- [Plan d'implémentation](./specs/005-persist-timer-state/plan.md)
-- [Tasks](./specs/005-persist-timer-state/tasks.md)
-
-### Feature 006 - Burger Menu avec Durées Prédéfinies
-- [Spécification](./specs/006-burger-menu-presets/spec.md)
-- [Plan d'implémentation](./specs/006-burger-menu-presets/plan.md)
-- [Tasks](./specs/006-burger-menu-presets/tasks.md)
-
-### Général
-- [Constitution](/.specify/memory/constitution.md)
+- [Architecture](./docs/ARCHITECTURE.md) — mental model, data flow, SVG rendering
+- [Glossaire](./docs/GLOSSARY.md) — vocabulaire du domaine
+- [Problèmes connus](./docs/KNOWN_ISSUES.md) — dette technique, zones fragiles
+- [ADRs](./docs/adr/) — décisions d'architecture (SVG, rAF, persistance, etc.)
+- [Spécifications features](./specs/) — specs, plans et tasks par feature (001-006)
 
 ## Infrastructure
 
