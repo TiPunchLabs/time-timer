@@ -12,6 +12,10 @@ describe('BurgerMenu', () => {
     onSelectColor: vi.fn(),
     showPastel: false,
     onTogglePastel: vi.fn(),
+    showMinuteTicks: false,
+    onToggleMinuteTicks: vi.fn(),
+    showFiveMinuteTicks: false,
+    onToggleFiveMinuteTicks: vi.fn(),
   }
 
   beforeEach(() => {
@@ -170,6 +174,7 @@ describe('BurgerMenu', () => {
         ...screen.getAllByRole('button'),
         ...screen.getAllByRole('radio'),
         ...screen.getAllByRole('switch'),
+        ...screen.getAllByRole('link'),
       ]
       const firstFocusable = allFocusable[0]
       const lastFocusable = allFocusable[allFocusable.length - 1]
