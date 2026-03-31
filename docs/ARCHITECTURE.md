@@ -23,6 +23,10 @@
 |  |  ticks)    |  +------------------+                   |
 |  +-------------+  | ErrorBoundary    |                   |
 |                    +------------------+                   |
+|                    +------------------+                   |
+|                    | ReloadPrompt     |                   |
+|                    | (PWA update)     |                   |
+|                    +------------------+                   |
 +----------------------------------------------------------+
 
 Hooks:
@@ -41,6 +45,7 @@ Utils:
 ErrorBoundary
   App
     OfflineIndicator
+    ReloadPrompt
     BurgerMenu
     DurationPicker          (hidden when running/paused/finished)
     TimerDisplay
@@ -186,3 +191,25 @@ GitHub repository managed via Terraform (`terraform/`):
 | `src/constants/design.ts` | All magic numbers, colors, presets, storage keys |
 | `src/types/timer.ts` | TypeScript interfaces for timer domain |
 | `vite.config.ts` | Vite + PWA + Vitest configuration |
+| `.github/workflows/ci.yml` | CI pipeline: lint, type-check, tests on PRs |
+| `netlify.toml` | Netlify build config (pnpm build, Node 22) |
+
+## CI/CD Pipeline
+
+```
+PR opened/updated
+  ├── GitHub Actions (ci.yml)
+  │     ├── pnpm lint
+  │     ├── pnpm type-check
+  │     └── pnpm test
+  │
+  └── Netlify
+        ├── pnpm build
+        └── Deploy Preview
+
+Merge to main
+  └── Netlify
+        └── Production deploy
+```
+
+Branch protection on `main` requires the `quality` check (GitHub Actions) to pass before merge.

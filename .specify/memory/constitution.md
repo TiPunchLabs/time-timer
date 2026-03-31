@@ -70,6 +70,9 @@ Fournir un outil de gestion du temps visuel qui aide les enfants à mieux appré
 | **SVG** | Rendu des cercles (arcs avec stroke-dasharray/dashoffset) |
 | **localStorage** | Persistance de l'état du timer |
 | **requestAnimationFrame** | Animation fluide du décompte |
+| **GitHub Actions** | CI (lint, type-check, tests sur les PRs) |
+| **Netlify** | Build, deploy preview, deploy production |
+| **Terraform** | IaC pour le dépôt GitHub et branch protection |
 
 ---
 
@@ -172,6 +175,10 @@ Ces fonctionnalités sont explicitement exclues de la première version :
 | Contour de cadran statique (toujours visible) | ✅ Implémenté v2.0.0 |
 | Graduations minutes (toggle, 60 traits) | ✅ Implémenté v2.0.0 |
 | Graduations 5 minutes (toggle, 12 traits prononcés) | ✅ Implémenté v2.0.0 |
+| Bandeau mise à jour PWA (prompt utilisateur) | ✅ Implémenté v2.1.0 |
+| Section "À propos" dans le menu burger | ✅ Implémenté v2.1.0 |
+| CI GitHub Actions (lint, type-check, tests) | ✅ Implémenté v2.1.0 |
+| Branch protection main (Terraform) | ✅ Implémenté v2.1.0 |
 | PWA update prompt (ReloadPrompt) | ✅ Implémenté v2.1.0 |
 | About section in burger menu (version + GitHub link) | ✅ Implémenté v2.1.0 |
 

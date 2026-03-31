@@ -146,6 +146,20 @@ Pour installer sur mobile :
 2. Utiliser "Ajouter à l'écran d'accueil"
 3. L'app se lance en mode standalone
 
+### Mise à jour
+
+Quand une nouvelle version est disponible, un bandeau apparaît en bas de l'écran avec un bouton "Mettre à jour". Le rechargement active la nouvelle version.
+
+### CI/CD
+
+| Vérification | Outil | Déclencheur |
+|-------------|-------|-------------|
+| Lint (ESLint) | GitHub Actions | PR vers main |
+| Type-check (TypeScript) | GitHub Actions | PR vers main |
+| Tests (Vitest) | GitHub Actions | PR vers main |
+| Build + Deploy Preview | Netlify | PR vers main |
+| Deploy Production | Netlify | Merge sur main |
+
 ## Documentation
 
 - [Architecture](./docs/ARCHITECTURE.md) — mental model, data flow, SVG rendering
