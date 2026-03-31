@@ -14,6 +14,10 @@ interface TimerDisplayProps {
   color?: string
   /** Whether to show the inner pastel circle */
   showPastel?: boolean
+  /** Whether to show minor (every minute) tick marks */
+  showMinuteTicks?: boolean
+  /** Whether to show major (every 5 minutes) tick marks */
+  showFiveMinuteTicks?: boolean
 }
 
 export function TimerDisplay({
@@ -22,6 +26,8 @@ export function TimerDisplay({
   isPaused = false,
   color,
   showPastel = true,
+  showMinuteTicks = false,
+  showFiveMinuteTicks = false,
 }: TimerDisplayProps) {
   const circlesData = useMemo(
     () => getCirclesData(totalMinutes, remainingSeconds),
@@ -64,6 +70,8 @@ export function TimerDisplay({
           isEmpty={circle.state === 'empty'}
           color={color}
           showPastel={showPastel}
+          showMinuteTicks={showMinuteTicks}
+          showFiveMinuteTicks={showFiveMinuteTicks}
         />
       ))}
     </div>

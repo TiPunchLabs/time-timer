@@ -44,6 +44,12 @@ export const COLOR_STORAGE_KEY = 'tempokids_color'
 /** LocalStorage key for pastel circle preference */
 export const PASTEL_ENABLED_STORAGE_KEY = 'tempokids_pastel_enabled'
 
+/** LocalStorage key for minute ticks preference */
+export const MINUTE_TICKS_STORAGE_KEY = 'tempokids_minute_ticks'
+
+/** LocalStorage key for 5-minute ticks preference */
+export const FIVE_MINUTE_TICKS_STORAGE_KEY = 'tempokids_five_minute_ticks'
+
 /** Color palette for customization */
 export const COLOR_PALETTE = [
   { name: 'Bleu', hex: '#2196F3' },
