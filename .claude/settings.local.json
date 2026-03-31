@@ -28,7 +28,28 @@
       "Bash(wc:*)",
       "Bash(cat:*)",
       "Bash(git -C /home/xgueret/Workspace/01-projets/pwa/time-timer log --oneline -20)",
-      "Bash(pnpm list:*)"
+      "Bash(pnpm list:*)",
+      "Bash(git tag:*)",
+      "Bash(sort:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat\\(timer\\): persist timer state on browser reload\n\n- Add state restoration logic for running, paused, and idle timers\n- Running timers resume with elapsed time calculated\n- Paused timers restore exact remaining time\n- Idle timers preserve configured duration\n- Add isValidPersistedState validation for corrupted data handling\n- Add version field to PersistedState for future migrations\n- Add 7 new persistence tests \\(134 total tests\\)\n\nv1.5.0\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(pkill:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(curl:*)",
+      "Bash(git push:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(gh pr:*)",
+      "Bash(git rebase:*)",
+      "Bash(git stash:*)",
+      "Bash(gh api:*)",
+      "Bash(pnpm add:*)",
+      "Bash(git pull:*)",
+      "Bash(git branch:*)",
+      "Bash(git reset:*)",
+      "Bash(gh run:*)",
+      "Bash(pnpm:*)",
+      "WebFetch(domain:app.netlify.com)"
     ]
   }
 }

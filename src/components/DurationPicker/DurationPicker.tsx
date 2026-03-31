@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { fromMinutes, toMinutes } from '../../utils/time'
 import { MAX_HOURS, MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE } from '../../constants/design'
 
@@ -15,6 +15,12 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
   const [hours, setHours] = useState(initialHours)
   const [minutes, setMinutes] = useState(initialMinutes)
 
+  // Keep refs in sync for use in intervals
+  const hoursRef = useRef(hours)
+  const minutesRef = useRef(minutes)
+  hoursRef.current = hours
+  minutesRef.current = minutes
+
   // Sync with external value
   useEffect(() => {
     const { hours: h, minutes: m } = fromMinutes(value)
@@ -25,55 +31,88 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
   const handleHoursChange = useCallback((newHours: number) => {
     const clampedHours = Math.max(0, Math.min(MAX_HOURS, newHours))
     setHours(clampedHours)
-    const totalMinutes = toMinutes(clampedHours, minutes)
+    const totalMinutes = toMinutes(clampedHours, minutesRef.current)
     if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
       onChange(totalMinutes)
     }
-  }, [minutes, onChange])
+  }, [onChange])
 
   const handleMinutesChange = useCallback((newMinutes: number) => {
     const clampedMinutes = Math.max(0, Math.min(59, newMinutes))
     setMinutes(clampedMinutes)
-    const totalMinutes = toMinutes(hours, clampedMinutes)
+    const totalMinutes = toMinutes(hoursRef.current, clampedMinutes)
     if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
       onChange(totalMinutes)
     }
-  }, [hours, onChange])
+  }, [onChange])
 
-  const incrementHours = () => handleHoursChange(hours + 1)
-  const decrementHours = () => handleHoursChange(hours - 1)
+  const incrementHours = useCallback(() => {
+    handleHoursChange(hoursRef.current + 1)
+  }, [handleHoursChange])
 
-  const incrementMinutes = () => {
-    // Rollover: at 59 minutes, add 1 hour and reset minutes to 0
-    if (minutes === 59 && hours < MAX_HOURS) {
-      const newHours = hours + 1
-      const newMinutes = 0
+  const decrementHours = useCallback(() => {
+    handleHoursChange(hoursRef.current - 1)
+  }, [handleHoursChange])
+
+  const incrementMinutes = useCallback(() => {
+    const h = hoursRef.current
+    const m = minutesRef.current
+    if (m === 59 && h < MAX_HOURS) {
+      const newHours = h + 1
       setHours(newHours)
-      setMinutes(newMinutes)
-      const totalMinutes = toMinutes(newHours, newMinutes)
-      if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
-        onChange(totalMinutes)
+      setMinutes(0)
+      const total = toMinutes(newHours, 0)
+      if (total >= MIN_DURATION_MINUTES && total <= MAX_DURATION_MINUTES) {
+        onChange(total)
       }
     } else {
-      handleMinutesChange(minutes + 1)
+      handleMinutesChange(m + 1)
     }
-  }
+  }, [onChange, handleMinutesChange])
 
-  const decrementMinutes = () => {
-    // Rollover: at 0 minutes with hours > 0, subtract 1 hour and set minutes to 59
-    if (minutes === 0 && hours > 0) {
-      const newHours = hours - 1
-      const newMinutes = 59
+  const decrementMinutes = useCallback(() => {
+    const h = hoursRef.current
+    const m = minutesRef.current
+    if (m === 0 && h > 0) {
+      const newHours = h - 1
       setHours(newHours)
-      setMinutes(newMinutes)
-      const totalMinutes = toMinutes(newHours, newMinutes)
-      if (totalMinutes >= MIN_DURATION_MINUTES && totalMinutes <= MAX_DURATION_MINUTES) {
-        onChange(totalMinutes)
+      setMinutes(59)
+      const total = toMinutes(newHours, 59)
+      if (total >= MIN_DURATION_MINUTES && total <= MAX_DURATION_MINUTES) {
+        onChange(total)
       }
     } else {
-      handleMinutesChange(minutes - 1)
+      handleMinutesChange(m - 1)
     }
-  }
+  }, [onChange, handleMinutesChange])
+
+  // Press-and-hold repeat logic
+  const repeatRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const stopRepeat = useCallback(() => {
+    if (repeatRef.current) clearTimeout(repeatRef.current)
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    repeatRef.current = null
+    intervalRef.current = null
+  }, [])
+
+  const startRepeat = useCallback((action: () => void) => {
+    stopRepeat()
+    repeatRef.current = setTimeout(() => {
+      intervalRef.current = setInterval(action, 80)
+    }, 400)
+  }, [stopRepeat])
+
+  useEffect(() => stopRepeat, [stopRepeat])
+
+  const holdProps = (action: () => void) => ({
+    onMouseDown: () => startRepeat(action),
+    onMouseUp: stopRepeat,
+    onMouseLeave: stopRepeat,
+    onTouchStart: () => startRepeat(action),
+    onTouchEnd: stopRepeat,
+  })
 
   const buttonClass = `
     w-10 h-10 md:w-14 md:h-14
@@ -97,6 +136,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
           disabled={disabled || hours >= MAX_HOURS}
           className={activeButtonClass}
           aria-label="Augmenter les heures"
+          {...holdProps(incrementHours)}
         >
           <ChevronUpIcon />
         </button>
@@ -112,6 +152,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
           disabled={disabled || (hours === 0 && minutes <= MIN_DURATION_MINUTES)}
           className={activeButtonClass}
           aria-label="Diminuer les heures"
+          {...holdProps(decrementHours)}
         >
           <ChevronDownIcon />
         </button>
@@ -142,6 +183,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
           disabled={disabled || (hours >= MAX_HOURS && minutes === 0)}
           className={activeButtonClass}
           aria-label="Augmenter les minutes"
+          {...holdProps(incrementMinutes)}
         >
           <ChevronUpIcon />
         </button>
@@ -157,6 +199,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
           disabled={disabled || (hours === 0 && (minutes - 1) < MIN_DURATION_MINUTES)}
           className={activeButtonClass}
           aria-label="Diminuer les minutes"
+          {...holdProps(decrementMinutes)}
         >
           <ChevronDownIcon />
         </button>
