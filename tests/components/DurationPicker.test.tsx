@@ -56,16 +56,16 @@ describe('DurationPicker', () => {
     expect(onChange).toHaveBeenCalledWith(60) // 1 hour
   })
 
-  it('calls onChange when incrementing minutes (by 5)', () => {
+  it('calls onChange when incrementing minutes (by 1)', () => {
     const onChange = vi.fn()
     render(<DurationPicker {...defaultProps} value={60} onChange={onChange} />)
     fireEvent.click(screen.getByRole('button', { name: /augmenter les minutes/i }))
-    expect(onChange).toHaveBeenCalledWith(65)
+    expect(onChange).toHaveBeenCalledWith(61)
   })
 
-  it('calls onChange when decrementing minutes (by 5)', () => {
+  it('calls onChange when decrementing minutes (by 1)', () => {
     const onChange = vi.fn()
-    render(<DurationPicker {...defaultProps} value={65} onChange={onChange} />)
+    render(<DurationPicker {...defaultProps} value={61} onChange={onChange} />)
     fireEvent.click(screen.getByRole('button', { name: /diminuer les minutes/i }))
     expect(onChange).toHaveBeenCalledWith(60)
   })
@@ -109,24 +109,24 @@ describe('DurationPicker', () => {
 
   // Rollover tests - Increment (US1)
   describe('minute increment rollover', () => {
-    it('rolls over from 55 minutes to next hour (0h55 → 1h00)', () => {
+    it('rolls over from 59 minutes to next hour (0h59 → 1h00)', () => {
       const onChange = vi.fn()
-      render(<DurationPicker {...defaultProps} value={55} onChange={onChange} />)
+      render(<DurationPicker {...defaultProps} value={59} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /augmenter les minutes/i }))
       // Should call onChange with 60 (1 hour, 0 minutes)
       expect(onChange).toHaveBeenCalledWith(60)
     })
 
-    it('rolls over from 1h55 to 2h00', () => {
+    it('rolls over from 1h59 to 2h00', () => {
       const onChange = vi.fn()
-      render(<DurationPicker {...defaultProps} value={115} onChange={onChange} />)
+      render(<DurationPicker {...defaultProps} value={119} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /augmenter les minutes/i }))
       expect(onChange).toHaveBeenCalledWith(120)
     })
 
-    it('rolls over from 3h55 to 4h00', () => {
+    it('rolls over from 3h59 to 4h00', () => {
       const onChange = vi.fn()
-      render(<DurationPicker {...defaultProps} value={235} onChange={onChange} />)
+      render(<DurationPicker {...defaultProps} value={239} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /augmenter les minutes/i }))
       expect(onChange).toHaveBeenCalledWith(240)
     })
@@ -144,29 +144,29 @@ describe('DurationPicker', () => {
 
   // Rollover tests - Decrement (US2)
   describe('minute decrement rollover', () => {
-    it('rolls over from 0 minutes to previous hour (1h00 → 0h55)', () => {
+    it('rolls over from 0 minutes to previous hour (1h00 → 0h59)', () => {
       const onChange = vi.fn()
       render(<DurationPicker {...defaultProps} value={60} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /diminuer les minutes/i }))
-      expect(onChange).toHaveBeenCalledWith(55)
+      expect(onChange).toHaveBeenCalledWith(59)
     })
 
-    it('rolls over from 2h00 to 1h55', () => {
+    it('rolls over from 2h00 to 1h59', () => {
       const onChange = vi.fn()
       render(<DurationPicker {...defaultProps} value={120} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /diminuer les minutes/i }))
-      expect(onChange).toHaveBeenCalledWith(115)
+      expect(onChange).toHaveBeenCalledWith(119)
     })
 
-    it('rolls over from 4h00 to 3h55', () => {
+    it('rolls over from 4h00 to 3h59', () => {
       const onChange = vi.fn()
       render(<DurationPicker {...defaultProps} value={240} onChange={onChange} />)
       fireEvent.click(screen.getByRole('button', { name: /diminuer les minutes/i }))
-      expect(onChange).toHaveBeenCalledWith(235)
+      expect(onChange).toHaveBeenCalledWith(239)
     })
 
-    it('disables - minutes at 0h05 (min reached)', () => {
-      render(<DurationPicker {...defaultProps} value={5} />)
+    it('disables - minutes at 0h01 (min reached)', () => {
+      render(<DurationPicker {...defaultProps} value={1} />)
       expect(screen.getByRole('button', { name: /diminuer les minutes/i })).toBeDisabled()
     })
 
