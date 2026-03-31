@@ -2,6 +2,12 @@
  * Design constants for TempoKids
  */
 
+/** App version (keep in sync with package.json) */
+export const APP_VERSION = '2.1.0'
+
+/** GitHub repository URL */
+export const GITHUB_URL = 'https://github.com/TiPunchLabs/time-timer'
+
 /** Timer blue color (TempoKids default) */
 export const TIMER_BLUE = '#2196F3'
 

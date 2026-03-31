@@ -4,6 +4,7 @@ import { TimerDisplay } from './components/TimerDisplay'
 import { Controls } from './components/Controls'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { OfflineIndicator } from './components/OfflineIndicator'
+import { ReloadPrompt } from './components/ReloadPrompt'
 import { TimerIcon, CheckIcon, BurgerMenuIcon } from './components/icons'
 import { BurgerMenu } from './components/BurgerMenu'
 import { useTimer } from './hooks/useTimer'
@@ -67,6 +68,9 @@ function App() {
 
   return (
     <div className="min-h-full flex flex-col bg-gradient-to-b from-slate-50 to-slate-100">
+      {/* PWA update prompt */}
+      <ReloadPrompt />
+
       {/* Offline indicator */}
       <OfflineIndicator />
 

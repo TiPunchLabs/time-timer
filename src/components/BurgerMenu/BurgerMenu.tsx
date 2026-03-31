@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
-import { PRESET_DURATIONS, COLOR_PALETTE } from '../../constants/design'
+import { PRESET_DURATIONS, COLOR_PALETTE, APP_VERSION, GITHUB_URL } from '../../constants/design'
 
 /**
  * Convert hex color to a lighter version (pastel)
@@ -289,6 +289,24 @@ export function BurgerMenu({ isOpen, onClose, onSelectDuration, selectedColor, o
               />
             </button>
           </label>
+        </div>
+
+        {/* About section */}
+        <div className="p-4 border-t border-slate-100 mt-auto">
+          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">
+            À propos
+          </h3>
+          <p className="text-xs text-slate-500">
+            TempoKids v{APP_VERSION}
+          </p>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-blue-500 hover:text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded transition-colors"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </div>
