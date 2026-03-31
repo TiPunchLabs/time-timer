@@ -15,6 +15,7 @@ pnpm test:watch      # Tests in watch mode
 pnpm test:coverage   # Tests with coverage
 pnpm lint            # ESLint
 pnpm type-check      # TypeScript type checking
+# CI runs automatically on PRs: lint + type-check + tests
 ```
 
 ## Project Structure
@@ -24,12 +25,13 @@ src/
   App.tsx                        # Root component — layout, state orchestration
   main.tsx                       # Entry point
   components/
-    BurgerMenu/                  # Slide-out menu: presets, color picker, pastel/ticks toggles
+    BurgerMenu/                  # Slide-out menu: presets, color picker, toggles, about section
     ClockCircle/                 # SVG clock circle with dial outline, tick marks, dual-arc rendering
     Controls/                    # Start / Pause / Resume / Reset buttons
     DurationPicker/              # Hours + minutes input with rollover
     ErrorBoundary/               # React error boundary wrapper
     OfflineIndicator/            # Network status banner
+    ReloadPrompt/                # PWA update prompt banner
     TimerDisplay/                # Grid layout for 1-4 clock circles
     icons/                       # SVG icon components (Play, Pause, Reset, Burger, etc.)
   hooks/
@@ -47,6 +49,8 @@ tests/                           # Vitest tests mirroring src/ structure
 specs/                           # Feature specifications (001-006)
 terraform/                       # GitHub repository management via Terraform
 public/                          # Static assets, PWA icons, screenshots
+  .github/workflows/ci.yml       # GitHub Actions CI (lint, type-check, tests)
+  netlify.toml                    # Netlify build config
 ```
 
 ## Architecture
@@ -59,6 +63,7 @@ Key patterns:
 - **SVG rendering**: Clock circles use `stroke-dasharray` / transform tricks for clockwise fill from 12h
 - **requestAnimationFrame**: Smooth countdown animation (not setInterval)
 - **localStorage**: User preferences (color, pastel toggle, tick marks) and timer state persistence
+- **CI/CD**: GitHub Actions (lint, type-check, tests) + Netlify (build, deploy preview)
 
 ## Code Style
 
@@ -94,6 +99,7 @@ Key patterns:
 | 006 | Burger menu with presets + color selector | 006-burger-menu-presets | Merged |
 | 007 | Pastel circle toggle | 007-pastel-toggle | Merged |
 | 008 | Static dial outline + tick marks | 008-static-dial-outline | In progress |
+| 009 | PWA update prompt + about section | 011-ci-workflow | Merged |
 
 ## User Preferences
 

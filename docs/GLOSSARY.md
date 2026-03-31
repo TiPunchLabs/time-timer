@@ -47,6 +47,7 @@ Domain vocabulary used across code, specs, and documentation.
 | **Preset Duration** | Pre-configured duration (30, 45, 75, 90, 120, 150 min) selectable from burger menu. |
 | **Color Palette** | Fixed set of 12 colors the user can choose from. |
 | **Rollover** | DurationPicker behavior: incrementing minutes past 55 rolls to 0 and increments hours (and vice versa). |
+| **Reload Prompt** | Bottom banner shown when a new service worker version is available. User can click to update or dismiss. |
 
 ## Technical
 
@@ -56,3 +57,4 @@ Domain vocabulary used across code, specs, and documentation.
 | **PersistedState** | Data structure saved to localStorage representing the timer's state at a point in time. |
 | **savedAt** | Timestamp in `PersistedState` used to calculate elapsed time on page reload. |
 | **rAF** | Abbreviation for `requestAnimationFrame` — the browser API driving the countdown loop. |
+| **Service Worker Prompt** | PWA update strategy where the new SW waits for user confirmation before activating (vs `autoUpdate` which activates silently). |
