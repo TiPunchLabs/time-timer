@@ -44,8 +44,8 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
   const decrementHours = () => handleHoursChange(hours - 1)
 
   const incrementMinutes = () => {
-    // Rollover: at 55 minutes, add 1 hour and reset minutes to 0
-    if (minutes === 55 && hours < MAX_HOURS) {
+    // Rollover: at 59 minutes, add 1 hour and reset minutes to 0
+    if (minutes === 59 && hours < MAX_HOURS) {
       const newHours = hours + 1
       const newMinutes = 0
       setHours(newHours)
@@ -55,15 +55,15 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
         onChange(totalMinutes)
       }
     } else {
-      handleMinutesChange(minutes + 5)
+      handleMinutesChange(minutes + 1)
     }
   }
 
   const decrementMinutes = () => {
-    // Rollover: at 0 minutes with hours > 0, subtract 1 hour and set minutes to 55
+    // Rollover: at 0 minutes with hours > 0, subtract 1 hour and set minutes to 59
     if (minutes === 0 && hours > 0) {
       const newHours = hours - 1
-      const newMinutes = 55
+      const newMinutes = 59
       setHours(newHours)
       setMinutes(newMinutes)
       const totalMinutes = toMinutes(newHours, newMinutes)
@@ -71,7 +71,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
         onChange(totalMinutes)
       }
     } else {
-      handleMinutesChange(minutes - 5)
+      handleMinutesChange(minutes - 1)
     }
   }
 
@@ -154,7 +154,7 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
         <button
           type="button"
           onClick={decrementMinutes}
-          disabled={disabled || (hours === 0 && (minutes - 5) < MIN_DURATION_MINUTES)}
+          disabled={disabled || (hours === 0 && (minutes - 1) < MIN_DURATION_MINUTES)}
           className={activeButtonClass}
           aria-label="Diminuer les minutes"
         >
