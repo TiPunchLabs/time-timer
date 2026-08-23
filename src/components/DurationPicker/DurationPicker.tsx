@@ -1,16 +1,14 @@
 import { useState, useCallback, useEffect } from 'react'
 import { fromMinutes, toMinutes } from '../../utils/time'
-import { MAX_HOURS, MAX_DURATION_MINUTES, MIN_DURATION_MINUTES, TIMER_BLUE } from '../../constants/design'
+import { MAX_HOURS, MAX_DURATION_MINUTES, MIN_DURATION_MINUTES } from '../../constants/design'
 
 interface DurationPickerProps {
   value: number // in minutes
   onChange: (minutes: number) => void
   disabled?: boolean
-  /** Custom accent color */
-  accentColor?: string
 }
 
-export function DurationPicker({ value, onChange, disabled = false, accentColor = TIMER_BLUE }: DurationPickerProps) {
+export function DurationPicker({ value, onChange, disabled = false }: DurationPickerProps) {
   const { hours: initialHours, minutes: initialMinutes } = fromMinutes(value)
   const [hours, setHours] = useState(initialHours)
   const [minutes, setMinutes] = useState(initialMinutes)
@@ -75,131 +73,114 @@ export function DurationPicker({ value, onChange, disabled = false, accentColor 
     }
   }
 
-  const buttonClass = `
-    w-10 h-10 md:w-14 md:h-14
+  const stepperButtonClass = `
+    w-11 h-11 md:w-12 md:h-12
     flex items-center justify-center
-    rounded-lg md:rounded-xl
-    transition-all duration-150
-    active:scale-95
-    disabled:opacity-30 disabled:cursor-not-allowed
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+    rounded-full
+    border border-hairline bg-paper text-ink-70
+    transition-colors duration-150
+    hover:bg-hairline/40 active:bg-hairline/70
+    disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-paper
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface focus:ring-ink
   `
 
-  const activeButtonClass = `${buttonClass} bg-slate-100 text-slate-700 hover:bg-slate-200 active:bg-slate-300`
-
   return (
-    <div className="flex items-center gap-4 md:gap-6 select-none">
+    <div className="flex items-end justify-center gap-1 md:gap-3 select-none">
       {/* Hours */}
-      <div className="flex flex-col items-center gap-1">
-        <button
-          type="button"
-          onClick={incrementHours}
-          disabled={disabled || hours >= MAX_HOURS}
-          className={activeButtonClass}
-          aria-label="Augmenter les heures"
-        >
-          <ChevronUpIcon />
-        </button>
-        <div
-          className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: accentColor }}
-        >
-          {hours}
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-1.5 md:gap-2">
+          <button
+            type="button"
+            onClick={decrementHours}
+            disabled={disabled || (hours === 0 && minutes <= MIN_DURATION_MINUTES)}
+            className={stepperButtonClass}
+            aria-label="Diminuer les heures"
+          >
+            <MinusIcon />
+          </button>
+          <span
+            className="tabular font-display text-4xl md:text-5xl font-medium leading-none w-11 md:w-14 text-center text-ink"
+          >
+            {hours}
+          </span>
+          <button
+            type="button"
+            onClick={incrementHours}
+            disabled={disabled || hours >= MAX_HOURS}
+            className={stepperButtonClass}
+            aria-label="Augmenter les heures"
+          >
+            <PlusIcon />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={decrementHours}
-          disabled={disabled || (hours === 0 && minutes <= MIN_DURATION_MINUTES)}
-          className={activeButtonClass}
-          aria-label="Diminuer les heures"
-        >
-          <ChevronDownIcon />
-        </button>
-        <span className="text-xs font-medium text-slate-500">heures</span>
+        <span className="text-[11px] font-medium tracking-wide text-ink-45">heures</span>
       </div>
 
-      {/* Separator - aligned with number display */}
-      <div className="flex flex-col items-center gap-1">
-        {/* Spacer for top button height */}
-        <div className="h-10 md:h-14" aria-hidden="true" />
-        <span
-          className="text-4xl md:text-5xl font-bold py-1"
-          style={{ color: accentColor }}
-        >
-          :
-        </span>
-        {/* Spacer for bottom button height */}
-        <div className="h-10 md:h-14" aria-hidden="true" />
-        {/* Spacer for label height */}
-        <div className="h-4" aria-hidden="true" />
-      </div>
+      {/* Separator - aligned with the number row */}
+      <span
+        className="font-display text-2xl md:text-3xl text-hairline-strong leading-none pb-[26px] md:pb-[30px]"
+        aria-hidden="true"
+      >
+        :
+      </span>
 
       {/* Minutes */}
-      <div className="flex flex-col items-center gap-1">
-        <button
-          type="button"
-          onClick={incrementMinutes}
-          disabled={disabled || (hours >= MAX_HOURS && minutes === 0)}
-          className={activeButtonClass}
-          aria-label="Augmenter les minutes"
-        >
-          <ChevronUpIcon />
-        </button>
-        <div
-          className="text-4xl md:text-5xl font-bold w-14 md:w-16 text-center py-1"
-          style={{ color: accentColor }}
-        >
-          {minutes.toString().padStart(2, '0')}
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex items-center gap-1.5 md:gap-2">
+          <button
+            type="button"
+            onClick={decrementMinutes}
+            disabled={disabled || (hours === 0 && (minutes - 1) < MIN_DURATION_MINUTES)}
+            className={stepperButtonClass}
+            aria-label="Diminuer les minutes"
+          >
+            <MinusIcon />
+          </button>
+          <span
+            className="tabular font-display text-4xl md:text-5xl font-medium leading-none w-16 md:w-20 text-center text-ink"
+          >
+            {minutes.toString().padStart(2, '0')}
+          </span>
+          <button
+            type="button"
+            onClick={incrementMinutes}
+            disabled={disabled || (hours >= MAX_HOURS && minutes === 0)}
+            className={stepperButtonClass}
+            aria-label="Augmenter les minutes"
+          >
+            <PlusIcon />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={decrementMinutes}
-          disabled={disabled || (hours === 0 && (minutes - 1) < MIN_DURATION_MINUTES)}
-          className={activeButtonClass}
-          aria-label="Diminuer les minutes"
-        >
-          <ChevronDownIcon />
-        </button>
-        <span className="text-xs font-medium text-slate-500">minutes</span>
+        <span className="text-[11px] font-medium tracking-wide text-ink-45">minutes</span>
       </div>
     </div>
   )
 }
 
-function ChevronUpIcon() {
+function MinusIcon() {
   return (
     <svg
-      className="w-6 h-6 md:w-7 md:h-7"
+      className="w-4 h-4 md:w-5 md:h-5"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2.5}
-        d="M5 15l7-7 7 7"
-      />
+      <path strokeLinecap="round" strokeWidth={2.4} d="M6 12h12" />
     </svg>
   )
 }
 
-function ChevronDownIcon() {
+function PlusIcon() {
   return (
     <svg
-      className="w-6 h-6 md:w-7 md:h-7"
+      className="w-4 h-4 md:w-5 md:h-5"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
       aria-hidden="true"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2.5}
-        d="M19 9l-7 7-7-7"
-      />
+      <path strokeLinecap="round" strokeWidth={2.4} d="M12 6v12M6 12h12" />
     </svg>
   )
 }

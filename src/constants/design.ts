@@ -14,11 +14,20 @@ export const TIMER_BLUE = '#2196F3'
 /** Empty circle gray */
 export const TIMER_GRAY = '#E0E0E0'
 
-/** Circle stroke color */
-export const STROKE_COLOR = '#333333'
+/** Static dial outline color */
+export const STROKE_COLOR = '#B7AF9E'
+
+/** Tick mark color for 5-minute (major) marks */
+export const TICK_MAJOR_COLOR = '#A49B8A'
+
+/** Tick mark color for 1-minute (minor) marks */
+export const TICK_MINOR_COLOR = '#C6BFAE'
+
+/** Dial face color (the paper disc behind the arcs) */
+export const DIAL_FACE_COLOR = '#FBF8F2'
 
 /** Background color */
-export const BACKGROUND_COLOR = '#FFFFFF'
+export const BACKGROUND_COLOR = '#F3EFE6'
 
 /** Default circle radius */
 export const CIRCLE_RADIUS = 45
@@ -78,11 +87,11 @@ export const TIMER_UPDATE_INTERVAL = 100
 /** Circle sizes for responsive design (optimized for max 4 circles on mobile/tablet) */
 export const CIRCLE_SIZES = {
   /** 1 circle - full width */
-  xl: 220,
+  xl: 268,
   /** 2 circles - side by side */
-  lg: 160,
+  lg: 168,
   /** 3-4 circles - 2x2 grid */
-  md: 135,
+  md: 152,
 } as const
 
 /** Preset durations for quick selection */

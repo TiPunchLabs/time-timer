@@ -21,19 +21,19 @@ export function Controls({
   accentColor = TIMER_BLUE,
 }: ControlsProps) {
   const buttonBase = `
-    min-h-[48px] md:min-h-[56px] px-6 md:px-8
-    rounded-xl md:rounded-2xl font-bold text-base md:text-lg
-    transition-all duration-150
-    focus:outline-none focus:ring-2 focus:ring-offset-2
-    active:scale-95
-    flex items-center justify-center gap-2 md:gap-3
+    h-14 px-6
+    rounded-2xl font-semibold text-base md:text-[17px]
+    transition-[filter,background-color] duration-150
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-surface focus:ring-ink
+    active:brightness-95
+    flex items-center justify-center gap-2.5
   `
 
-  const primaryButton = `${buttonBase} text-white shadow-lg hover:shadow-xl hover:brightness-110 focus:ring-blue-500`
-  const secondaryButton = `${buttonBase} bg-slate-200 text-slate-700 hover:bg-slate-300 focus:ring-slate-400`
+  const primaryButton = `${buttonBase} flex-1 text-white hover:brightness-105`
+  const secondaryButton = `${buttonBase} w-[118px] shrink-0 border border-hairline-strong bg-paper text-ink-70 hover:bg-hairline/40`
 
   return (
-    <div className="flex items-center gap-4 md:gap-6">
+    <div className="flex items-center gap-3">
       {/* Main action button */}
       {status === 'idle' && (
         <button

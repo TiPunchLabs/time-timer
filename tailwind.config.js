@@ -9,6 +9,22 @@ export default {
       colors: {
         'timer-blue': '#2196F3',
         'timer-gray': '#E0E0E0',
+        // Atelier palette: warm paper + ink, accent reserved for the dial
+        paper: '#F3EFE6',
+        surface: '#FBF8F2',
+        hairline: '#DED7C6',
+        'hairline-strong': '#C6BFAE',
+        ink: '#191814',
+        'ink-70': '#57534A',
+        'ink-45': '#8B8578',
+        'dial-outline': '#B7AF9E',
+        'tick-major': '#A49B8A',
+        'tick-minor': '#C6BFAE',
+        success: '#3F7D4E',
+      },
+      fontFamily: {
+        display: ['"Space Grotesk Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Instrument Sans Variable"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse-slow 2s ease-in-out infinite',

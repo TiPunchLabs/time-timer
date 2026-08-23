@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'TempoKids - Time Timer',
         short_name: 'TempoKids',
         description: 'Visual time management for children',
-        theme_color: '#2196F3',
-        background_color: '#FFFFFF',
+        theme_color: '#F3EFE6',
+        background_color: '#F3EFE6',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
@@ -39,24 +39,8 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        navigateFallback: '/index.html',
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          }
-        ]
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        navigateFallback: '/index.html'
       }
     })
   ],
