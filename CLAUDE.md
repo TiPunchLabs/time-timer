@@ -33,7 +33,7 @@ src/
     OfflineIndicator/            # Network status banner
     ReloadPrompt/                # PWA update prompt banner
     TimerDisplay/                # Grid layout for 1-4 clock circles
-    icons/                       # SVG icon components (Play, Pause, Reset, Burger, etc.)
+    icons/                       # SVG icon components (Play, Pause, Reset, Check, Burger)
   hooks/
     useTimer.ts                  # Core timer logic (start/pause/resume/reset + persistence)
     useLocalStorage.ts           # Generic localStorage hook with JSON serialization
@@ -69,6 +69,7 @@ Key patterns:
 
 - **Language**: TypeScript 5.x strict, React 18+ functional components
 - **Styling**: Tailwind CSS utility classes only (no custom CSS)
+- **Design tokens**: warm paper / ink palette + `font-display` (Space Grotesk) and `font-sans` (Instrument Sans) in [tailwind.config.js](tailwind.config.js); accent colour is reserved for the dial, everything else is neutral
 - **Package manager**: pnpm (never npm/yarn)
 - **Commits**: Conventional Commits (feat:, fix:, chore:, docs:)
 - **Tests**: Vitest + @testing-library/react
@@ -100,6 +101,7 @@ Key patterns:
 | 007 | Pastel circle toggle | 007-pastel-toggle | Merged |
 | 008 | Static dial outline + tick marks | 008-static-dial-outline | In progress |
 | 009 | PWA update prompt + about section | 011-ci-workflow | Merged |
+| 010 | Visual refresh ("Atelier": paper/ink palette, self-hosted type, bottom action bar) | 016-visual-refresh | In progress |
 
 ## User Preferences
 

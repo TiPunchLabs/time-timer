@@ -3,6 +3,9 @@ import {
   TIMER_BLUE,
   CIRCLE_RADIUS,
   STROKE_COLOR,
+  TICK_MAJOR_COLOR,
+  TICK_MINOR_COLOR,
+  DIAL_FACE_COLOR,
 } from '../../constants/design'
 
 /** Stroke width for the outer colored arc */
@@ -54,6 +57,8 @@ interface ClockCircleProps {
   showMinuteTicks?: boolean
   /** Whether to show major (every 5 minutes) tick marks */
   showFiveMinuteTicks?: boolean
+  /** Extra classes, used to scale the dial up on wider screens */
+  className?: string
 }
 
 /**
@@ -135,6 +140,7 @@ function generateTickMarks(
     const useMajorStyle = isFiveMinuteMark && showMajor
     const length = useMajorStyle ? TICK_MAJOR_LENGTH : TICK_MINOR_LENGTH
     const width = useMajorStyle ? TICK_MAJOR_WIDTH : TICK_MINOR_WIDTH
+    const color = useMajorStyle ? TICK_MAJOR_COLOR : TICK_MINOR_COLOR
     const angle = (i / 60) * 2 * Math.PI
 
     const outerX = cx + r * Math.sin(angle)
@@ -149,7 +155,7 @@ function generateTickMarks(
         y1={outerY}
         x2={innerX}
         y2={innerY}
-        stroke={STROKE_COLOR}
+        stroke={color}
         strokeWidth={width}
       />
     )
@@ -169,6 +175,7 @@ export function ClockCircle({
   showPastel = true,
   showMinuteTicks = false,
   showFiveMinuteTicks = false,
+  className = '',
 }: ClockCircleProps) {
   const viewBoxSize = 100
   const center = viewBoxSize / 2
@@ -201,10 +208,19 @@ export function ClockCircle({
       width={size}
       height={size}
       viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
-      className={`${pauseClass} transition-opacity drop-shadow-lg`}
+      className={`${pauseClass} transition-opacity ${className}`}
       role="img"
       aria-label={`Cercle ${isEmpty ? 'vide' : `rempli à ${Math.round(fillPercentage * 100)}%`}`}
     >
+      {/* Dial face - a paper disc that separates the dial from the page */}
+      <circle
+        cx={center}
+        cy={center}
+        r={radius - 0.5}
+        fill={DIAL_FACE_COLOR}
+        stroke="none"
+      />
+
       {/* Static dial outline - always visible, independent of timer state */}
       <circle
         cx={center}

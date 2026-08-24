@@ -13,7 +13,7 @@ export function OfflineIndicator() {
 
   return (
     <div
-      className="bg-amber-500 text-white text-center py-2 px-4 text-sm font-medium"
+      className="bg-amber-500 text-white text-center py-2 px-4 text-sm font-semibold"
       role="alert"
       aria-live="polite"
     >

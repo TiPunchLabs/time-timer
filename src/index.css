@@ -8,13 +8,17 @@ html, body {
 }
 
 body {
-  @apply bg-white text-gray-900 antialiased;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  @apply bg-paper text-ink antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
 #root {
   @apply h-full;
+}
+
+/* Tabular figures for every countdown and picker value */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Pause animation */
@@ -41,4 +45,15 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pause,
+  .animate-pulse-slow,
+  .animate-slide-in-right,
+  .animate-slide-out-right,
+  .animate-fade-in,
+  .animate-fade-out {
+    animation: none;
+  }
 }

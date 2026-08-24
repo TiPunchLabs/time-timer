@@ -42,6 +42,15 @@ export function TimerDisplay({
     return CIRCLE_SIZES.md // 3-4 circles
   }, [circlesData.length])
 
+  // On wider screens the dial gets the room it deserves; CSS wins over the
+  // width/height attributes, so the base size stays the mobile one.
+  const sizeClass = useMemo(() => {
+    const count = circlesData.length
+    if (count === 1) return 'md:w-[330px] md:h-[330px]'
+    if (count === 2) return 'md:w-[240px] md:h-[240px]'
+    return 'md:w-[200px] md:h-[200px]'
+  }, [circlesData.length])
+
   // Grid configuration based on circle count (max 4 circles)
   const gridClass = useMemo(() => {
     const count = circlesData.length
@@ -51,14 +60,14 @@ export function TimerDisplay({
 
   if (circlesData.length === 0) {
     return (
-      <div className="flex items-center justify-center p-8 text-gray-400">
+      <div className="flex items-center justify-center p-8 text-ink-45">
         Configurez une durée pour commencer
       </div>
     )
   }
 
   return (
-    <div className={`grid ${gridClass} gap-4 md:gap-6 place-items-center p-2 md:p-4`}>
+    <div className={`grid ${gridClass} gap-5 md:gap-8 place-items-center`}>
       {circlesData.map((circle) => (
         <ClockCircle
           key={circle.index}
@@ -72,6 +81,7 @@ export function TimerDisplay({
           showPastel={showPastel}
           showMinuteTicks={showMinuteTicks}
           showFiveMinuteTicks={showFiveMinuteTicks}
+          className={sizeClass}
         />
       ))}
     </div>
